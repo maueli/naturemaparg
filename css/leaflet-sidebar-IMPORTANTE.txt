@@ -1,0 +1,8 @@
+Importante LEAFLET SIDEBAR
+
+leaflet-sidebar.css
+
+Lineas 25 y 26 corrige ancho de todo el sidebar 
+
+
+Linea 121 el ancho del panel
