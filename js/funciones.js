@@ -47,7 +47,7 @@ function request_capa(directorio,nom,eacheach){
   $.ajax({
     type: "GET",
     //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
-    url:"https://maueli.github.io/naturemap/capas/"+directorio+"/"+nom+".js",
+    url:"https://maueli.github.io/naturemaparg/capas/"+directorio+"/"+nom+".js",
     dataType: "script",
     cache: true,
     async:false
@@ -211,7 +211,7 @@ function request_capasol_addtodo(ter,sol){
   $.ajax({
     type: "GET",
     //url:"http://maueli.scienceontheweb.net/naturemap/"+ter+"/"+ter+"_"+sol+".js",
-    url:"https://maueli.github.io/naturemap/capas/naturemap/"+ter+"/"+ter+"_"+sol+".js",
+    url:"https://maueli.github.io/naturemaparg/capas/naturemap/"+ter+"/"+ter+"_"+sol+".js",
     dataType: "script",
     cache: true,
     async:false
