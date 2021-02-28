@@ -962,13 +962,13 @@ function raster_call( file , nom, georaster ){
 
 
 /* Defino URL generica y FeatureGroup para rasters */
-const url_git = "https://maueli.github.io/pruebaserver/";
+const url_git = "https://maueli.github.io/naturemaparg/";
 const rasters = new L.FeatureGroup();
 
 /* En el primer click llamo a la funcion mediante "AJAX" o fetch */
 $(".capa_raster").one("click", function(){
   var nom = $(this).attr("data-id");
-  var file = url_git + nom + ".tif";
+  var file = url_git + "/" + nom + "/" + nom + ".tif";
   raster_call( file, nom , nom+"a")
 });
 

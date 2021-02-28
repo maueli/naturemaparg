@@ -1,26 +1,26 @@
 function cultivo( nom ){
-  var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
+  //var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
   var cult = {
     "presente_inta":{
       //"name": "soja_presente_inta",
-      "name" : "13_1v2",
+      "name" : nom.toLowerCase() + "_p_maxent",
       "title": nom + " Presente INTA",
-      "url": url_base + "p_inta.tif"
+  //    "url": url_base + "_p_maxent.tif"
     },
     "presente_maxent":{
-      "name" : nom + "_presente_maxent",
+      "name" : nom.toLowerCase() + "_presente_maxent",
       "title": nom + " Presente MDS",
-      "url": url_base + "p_maxent.tif"
+  //    "url": url_base + "_p_maxent.tif"
     },
     "2030_maxent":{
-      "name": nom + "_2030_maxent",
+      "name": nom.toLowerCase() + "_30_maxent",
       "title": nom + " 2030 MDS",
-      "url": url_base + "30_maxent.tif"
+//      "url": url_base + "_30_maxent.tif"
     },
     "2050_maxent":{
-      "name": nom + "_2050_maxent",
-      "title": "Soja 2050 MDS",
-      "url": url_base + "50_maxent.tif"
+      "name": nom.toLowerCase() + "_50_maxent",
+      "title": nom + " 2050 MDS",
+  //    "url": url_base + "_50_maxent.tif"
     }
   };
   return cult;
@@ -63,12 +63,13 @@ function add_cultivos_html(nom_cult, cult){
   );
 };
 
+
+/* Agrego todo al DOM */
 const cultivos = [ "Maiz" , "Soja", "Girasol", "Vid" ];
 for ( j=0; j < 4; j++ ){
   var info_cultivo = cultivo( cultivos[j] ); // Info del cultivo y sus Tiffs
   $( "#"+cultivos[j].toLowerCase() ).append("<div class='container pt-3 pb-3 '></div>");
   add_cultivos_html(cultivos[j], info_cultivo );
-  //alert(cultivos[i])
 }
 
 
