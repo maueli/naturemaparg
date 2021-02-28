@@ -967,8 +967,9 @@ const rasters = new L.FeatureGroup();
 
 /* En el primer click llamo a la funcion mediante "AJAX" o fetch */
 $(".capa_raster").one("click", function(){
-  var nom = $(this).attr("data-id");
-  var file = url_git + "/" + nom + "/" + nom + ".tif";
+  var nom_file = $(this).attr("data-id");
+  var nom = $(this).attr("data-name");
+  var file = url_git + "/" + nom + "/" + nom_file + ".tif";
   raster_call( file, nom , nom+"a")
 });
 

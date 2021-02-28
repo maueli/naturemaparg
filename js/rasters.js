@@ -32,7 +32,7 @@ function add_cultivos_html(nom_cult, cult){
   var todo = "";
   for (i in cult){
     var input_raster = ` <input class='rtaV0 capa_raster' id='`+cult[i].name+`' data-id='`+cult[i].name+`'
-    data-class='`+cult[i].name+`' type='checkbox'> `;
+    data-class='`+cult[i].name+`' data-name='`+ nom_cult.toLowerCase() +`' type='checkbox'> `;
     var check_raster = "<div class='chequeado'> <img src='img/check.png' width='30px'> </div>";
     var label_raster = `<label for='`+cult[i].name+`'> <div class='imgimg4'>
     <div class='sojaaa'>`+cult[i].title+`</div> `+ check_raster +` </div> </label>`;
