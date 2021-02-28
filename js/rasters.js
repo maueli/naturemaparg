@@ -1,12 +1,12 @@
 function cultivo( nom ){
   //var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
   var cult = {
-    "presente_inta":{
+  /*  "presente_inta":{
       //"name": "soja_presente_inta",
       "name" : nom.toLowerCase() + "_p_inta",
       "title": nom + " Presente INTA",
   //    "url": url_base + "_p_maxent.tif"
-    },
+},*/
     "presente_maxent":{
       "name" : nom.toLowerCase() + "_p_maxent",
       "title": nom + " Presente MDS",
@@ -52,13 +52,13 @@ function add_cultivos_html(nom_cult, cult){
     return out
   };
   var titulocapa = "<h3 class='titulo-cultivos'> Capas </h3>";
-  var titulovideo = "<h3 class='titulo-cultivos'> TimeLine </h3>";
+  var titulovideo = "<h3 class='titulo-cultivos'> TimeLapse </h3>";
   var videos = `<div class="row text-center">
                   <div class="col-md-6">
-                    <button class= "btn-others" id="movie"> Start </button>
+                    <button class= "btn-others movie" data-id='`+nom_cult.toLowerCase()+`'> Start </button>
                   </div>
                   <div class="col-md-6">
-                    <button class= "btn-others" id="movie_out"> End </button>
+                    <button class= "btn-others movie_out"> End </button>
                   </div>
                 </div> `
 
@@ -79,33 +79,90 @@ for ( j=0; j < 4; j++ ){
 }
 
 
-/* Defino Soja */
-/*
-var soja = {
-  "presente_inta":{
-    //"name": "soja_presente_inta",
-    "name" : "13_1v2",
-    "title": "Soja Presente INTA",
-    "url": "www"
-  },
-  "presente_maxent":{
-    "name" : "soja_presente_maxent",
-    "title": "Soja Presente MaxEnt",
-    "url": "www"
-  },
-  "2030_maxent":{
-    "name": "soja_2030_maxent",
-    "title": "Soja 2030 MaxEnt",
-    "url": "www"
-  },
-  "2050_maxent":{
-    "name": "soja_2050_maxent",
-    "title": "Soja 2050 MaxEnt",
-    "url": "www"
+/* DEFINO TODO EL SECTOR VIDEO */
+
+
+function raster_call_video( file , nom, georaster , rasters_layers, end="false" ){
+  var out
+  fetch( file )
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => {
+        parseGeoraster( arrayBuffer ).then( georaster => {
+          //console.log("georaster:", georaster);
+          out = new GeoRasterLayer({
+              attribution: "Planet",
+              georaster: georaster,
+              opacity: 1,
+              pixelValuesToColorFn: values => values[0] <= 0 ? null :
+                      (values[0] <=  10 )					? '#f6ffff' :
+                      (values[0] > 10 && values[0] <= 25) 	? '#48fef5' :
+                      (values[0] > 25 && values[0] <= 50) 	? '#f6e016' :
+                      (values[0] > 50 && values[0] <= 75) 	? '#ff7f00' :
+                      '#f00a06',
+                      //(values[0] > 75) 	? '#f00a06' :
+                      //'rgba(255,255,255,0)',
+
+              resolution: 350
+          });
+          rasters_layers.push(out);
+          //raster_layers[nom] = out;
+          //console.log("cargue una")
+          if(end){
+            //console.log("llegue al final")
+            rasters_video_group.addTo(mymap);
+            //console.log("FeatureGroup cargado en el mapa")
+            $(".loading").hide();
+            movie_active(rasters_layers);
+          }
+
+        });
+    });
+}
+
+var rasters_video_group = new L.FeatureGroup();
+
+function add_movie(e){
+  e.addTo(rasters_video_group)
+}
+function rmv_movie(e){
+  e.remove(rasters_video_group);
+}
+
+var rasters_video_layers = [];
+
+function movie_active( arr ){
+  for (i=0;i<arr.length;i++){
+    //console.log(arr[i])
+    setTimeout(add_movie, 100+i*3000 , arr[i] )
+    setTimeout(rmv_movie, 3000+i*3000 , arr[i] )
   }
-};
+  rasters_video_layers = [];
+}
 
-/* Agrego container */
-//$("#soja").append("<div class='container pt-3 pb-3 '></div>")
 
-/* Defino todo lo que hay que insertar */
+
+
+
+// Aprendiendo a usar callback functions
+$(document).ready(function(){
+  $(".movie").click( function(){
+    $(".loading").show();
+    var nom_cult = $(this).attr("data-id");
+  //  console.log(nom_cult)
+    var info_cult = cultivo(nom_cult);
+  //  console.log(info_cult)
+
+    var end = false;
+
+    for (i in info_cult){
+      var file = url_git + "/" + nom_cult + "/" + info_cult[i].name + ".tif";
+    //  console.log(i);
+      if( i == "2050_maxent" ){
+        end = true;
+      }
+    //  console.log(end);
+
+      raster_call_video( file ,nom_cult, nom_cult+"a", rasters_video_layers, end)
+    }
+  });
+});
