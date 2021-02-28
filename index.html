@@ -2915,11 +2915,11 @@ function GetCap_footprint(){
 //  GetCap_agro();
 
 
-
+/*
 GetCap_ign();
 GetCap_nasa();
 GetCap_footprint();
-
+*/
 
   /* LISTA DE CAPAS EXTRA */
   function GetCap_maswms(name,getcap,getmap){
@@ -3143,7 +3143,7 @@ var smallIcon = new L.Icon({
     iconUrl: 'img/check.png'
 });
 
-
+/*
 var prueba_marker = L.geoJSON(hola2,{
   pointToLayer:function(a,pos){
   return L.marker( pos, { icon:smallIcon })
@@ -3156,7 +3156,7 @@ $("#prueba_marker_in").click(function(){
 $("#prueba_marker_out").click(function(){
   prueba_marker.remove(mymap);
 })
-
+*/
 
 
   </script>
@@ -3165,83 +3165,15 @@ $("#prueba_marker_out").click(function(){
 
 <script>
 
-function add_movie(e){
-  e.addTo(mymap)
-}
-function rmv_movie(e){
-  e.remove(mymap);
-}
-
-var al_to_geotiff_file = "https://maueli.github.io/pruebaserver/13_1v2.tif";
-var aluminio;
-var al_to_geotiff_file2 = "https://maueli.github.io/pruebaserver/prueba_soja_2.tif";
-var aluminio2;
-$("#movie").click( ()=>{
-  $(".loading").show();
-  fetch(al_to_geotiff_file)
-    .then(response => response.arrayBuffer())
-    .then(arrayBuffer => {
-        parseGeoraster(arrayBuffer).then(georaster => {
-          // console.log("georaster:", georaster);
-          aluminio = new GeoRasterLayer({
-              attribution: "Planet",
-              georaster: georaster,
-              opacity: 1,
-              pixelValuesToColorFn: values => values[0] === -3.4028230607370965e+38? null :
-                      (values[0] <  1 )					? 'rgba(0,0,0,0)' :
-                      (values[0] >= 1 && values[0] < 70) 	? 'rgba(0,0,0,1)' :
-                      (values[0] >= 70 && values[0] < 75) 	? '#4caf50' :
-                      (values[0] >= 75 && values[0] < 79) 	? '#215a23' :
-                      (values[0] >= 79) 	? '#20308a' :
-                      'rgba(255,255,255,0)',
-
-              resolution: 350
-          });
-          //aluminio.addTo(mymap);
-          //mymap.fitBounds(aluminio.getBounds());
-
-        });
-    });
-
-
-    fetch(al_to_geotiff_file2)
-      .then(response => response.arrayBuffer())
-      .then(arrayBuffer => {
-          parseGeoraster(arrayBuffer).then(georaster2 => {
-            // console.log("georaster:", georaster);
-            aluminio2 = new GeoRasterLayer({
-                attribution: "Planet",
-                georaster: georaster2,
-                opacity: 1,
-                pixelValuesToColorFn: values => values[0] === -3.4028230607370965e+38? null :
-                        (values[0] <  1 )					? 'rgba(255,255,255,0)' :
-                        (values[0] >= 1 && values[0] < 70) 	? 'rgba(0,0,0,1)' :
-                        (values[0] >= 70 && values[0] < 75) 	? '#4caf50' :
-                        (values[0] >= 75 && values[0] < 79) 	? '#215a23' :
-                        (values[0] >= 79) 	? '#20308a' :
-                        'rgba(255,255,255,0)',
-
-                //resolution: 350
-            });
-            $(".loading").hide();
-            movie_active()
-            //aluminio.addTo(mymap);
-            //mymap.fitBounds(aluminio.getBounds());
-          });
-      });
-
-function movie_active(){
-  setTimeout(add_movie, 100 , aluminio)
-  setTimeout(rmv_movie, 3000 , aluminio)
-  setTimeout(add_movie, 3000, arg)
-  setTimeout(rmv_movie, 5000, arg)
-  setTimeout(add_movie, 5000, aluminio2)
-  //setTimeout(rmv_movie,000,aluminio2)
-}
 
 
 
-}); // Cierra el CLICK
+
+
+// movie_active( rasters_video_layers )
+
+
+
 
 $("#movie_out").click( ()=>{
   aluminio.remove(mymap)
