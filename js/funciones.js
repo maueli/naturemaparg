@@ -938,13 +938,14 @@ function raster_call( file , nom, georaster ){
               attribution: "Planet",
               georaster: georaster,
               opacity: 1,
-              pixelValuesToColorFn: values => values[0] === -3.4028230607370965e+38? null :
-                      (values[0] <  1 )					? 'rgba(0,0,0,0)' :
-                      (values[0] >= 1 && values[0] < 70) 	? 'rgba(0,0,0,1)' :
-                      (values[0] >= 70 && values[0] < 75) 	? '#4caf50' :
-                      (values[0] >= 75 && values[0] < 79) 	? '#215a23' :
-                      (values[0] >= 79) 	? '#20308a' :
-                      'rgba(255,255,255,0)',
+              pixelValuesToColorFn: values => values[0] <= 0 ? null :
+                      (values[0] <=  10 )					? '#f6ffff' :
+                      (values[0] > 10 && values[0] <= 25) 	? '#48fef5' :
+                      (values[0] > 25 && values[0] <= 50) 	? '#f6e016' :
+                      (values[0] > 50 && values[0] <= 75) 	? '#ff7f00' :
+                      '#f00a06',
+                      //(values[0] > 75) 	? '#f00a06' :
+                      //'rgba(255,255,255,0)',
 
               resolution: 350
           });
@@ -970,7 +971,7 @@ $(".capa_raster").one("click", function(){
   var nom_file = $(this).attr("data-id");
   var nom = $(this).attr("data-name");
   var file = url_git + "/" + nom + "/" + nom_file + ".tif";
-  raster_call( file, nom , nom+"a")
+  raster_call( file, nom_file , nom+"a")
 });
 
 $(".capa_raster").click( function(){

@@ -3,12 +3,12 @@ function cultivo( nom ){
   var cult = {
     "presente_inta":{
       //"name": "soja_presente_inta",
-      "name" : nom.toLowerCase() + "_p_maxent",
+      "name" : nom.toLowerCase() + "_p_inta",
       "title": nom + " Presente INTA",
   //    "url": url_base + "_p_maxent.tif"
     },
     "presente_maxent":{
-      "name" : nom.toLowerCase() + "_presente_maxent",
+      "name" : nom.toLowerCase() + "_p_maxent",
       "title": nom + " Presente MDS",
   //    "url": url_base + "_p_maxent.tif"
     },
@@ -27,7 +27,13 @@ function cultivo( nom ){
 };
 
 
-
+/*
+  data-id : Nombre del archivo y sirve para agregar(addTo) y eliminar(remove) de
+  rasters = L.FeatureGroup
+  data-name: nombre del cultivo y de la carpeta github
+  data-class: Mismo que toda la APP.
+  "capa raster" para llamar a los clicks genericamente
+ */
 function add_cultivos_html(nom_cult, cult){
   var todo = "";
   for (i in cult){
