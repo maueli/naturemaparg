@@ -962,7 +962,7 @@ function raster_call( file , nom, georaster ){
 
 
 /* Defino URL generica y FeatureGroup para rasters */
-const url_git = "https://maueli.github.io/naturemaparg/";
+const url_git = "https://maueli.github.io/naturemaparg/capas/cultivos";
 const rasters = new L.FeatureGroup();
 
 /* En el primer click llamo a la funcion mediante "AJAX" o fetch */
