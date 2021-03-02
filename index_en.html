@@ -1,0 +1,3187 @@
+<!doctype html>
+<html>
+<head>
+  <title> Viewmap beta </title>
+
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="biodiversidad carbono atlas fable naturemap" name="keywords">
+  <meta content="Atlas interactivo de ordenamiento ambiental territorial" name="description">
+
+  <!-- Favicons
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+ -->
+
+  <!-- Google Fonts -->
+ 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fondamento:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Calistoga' rel='stylesheet'>
+  	<link href='https://fonts.googleapis.com/css?family=Fondamento' rel='stylesheet'>
+
+  <!-- Bootstrap CSS Files -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+
+<link href="fontawesome/css/all.css" rel="stylesheet">
+
+ <link href="css/animate.min.css" rel="stylesheet">
+  <!--
+ <link href="css/jquery.modal.min.css" rel="stylesheet">
+  	<link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  	<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  	<link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+-->
+<!-- Owl - Carousel -->
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+
+  <!-- Main Stylesheet File -->
+
+  <link href="css/jquery-ui.min.css" rel="stylesheet">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+
+<link href="css/leaflet.draw.css" rel="stylesheet">
+
+
+
+  <link href="css/leaflet-search.src.css" rel="stylesheet">
+<!--
+  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+-->
+<link href="css/leaflet-sidebar.css" rel="stylesheet">
+<link href="css/leaflet.timedimension.control.min.css" rel="stylesheet">
+<link href="css/leaflet.print.css" rel="stylesheet">
+<link href="css/iconlayers.css" rel="stylesheet">
+
+<link href="css/style.css" rel="stylesheet">
+
+<link href="capas/wind/leaflet-velocity.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+
+
+
+<div class="container-fluid mapita">
+  <div class="row">
+    <div class="col-md-12 mapita2">
+      <div id="mapid" class="sidebar-map mapsize">
+
+        <div id="sidebar" class="leaflet-sidebar collapsed">
+
+            <!-- nav tabs -->
+            <div class="leaflet-sidebar-tabs">
+                <!-- top aligned tabs -->
+                <ul role="tablist">
+                    <li><a href="#control" role="tab"><i class="fa fa-bars active"></i></a></li>
+                    <li><a href="#capas" role="tab"><i class="fa fa-layer-group"></i></a></li>
+                    <li><a href="#mas" role="tab"> <i class="fa fa-plus"></i></a></li>
+                </ul>
+
+                <!-- bottom aligned tabs -->
+                <ul role="tablist">
+                    <li><a href=""><i class="fa fa-info"></i></a></li>
+                </ul>
+            </div>
+
+            <!-- panel content -->
+            <div class="leaflet-sidebar-content">
+
+              <!-- CONTROLES -->
+                <div class="leaflet-sidebar-pane" id="control">
+                    <h1 class="leaflet-sidebar-header">
+                        Control
+                        <span class="leaflet-sidebar-close"><i class="fa fa-cogs"></i></span>
+                    </h1>
+
+                    <div class="mapcontrol text-center">
+
+                      <button class="btn-acordion btn-seleccionar" data-info="seleccionar"> Select Layer </button>
+                      <div class="seleccionar" id="seleccionar">
+                        <h1>Select Layer</h1>
+                        <select class="select-capa" name="" id="select-capa"> </select>
+                      </div>
+
+                      <button class="btn-acordion btn-opacidad" data-info="opacidad"> Opacity </button>
+                      <div class="opacidad" id="opacidad">
+                        <div class="row pt-4">
+                          <div class="col-md-3">
+                            Perimeter
+                          </div>
+                          <div class="col-md-9">
+                            <input class="input-opacidad eediciones" type="range" id="input_opacidad_perimetro" name="vol"
+                            min="0" max="1" step="0.01" data-prop="opacity">
+                          </div>
+                        </div>
+                        <div class="row pt-4">
+                          <div class="col-md-3">
+                            Surface
+                          </div>
+                          <div class="col-md-9">
+                            <input class="input-opacidad eediciones" type="range" id="input_opacidad_superficie" name="vol"
+                            min="0" max="1" step="0.01" data-prop="fillOpacity">
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <button class="btn-acordion btn-btn-colores" data-info="colores"> Edit Color </button>
+                      <div id="colores" class="colores">
+
+                        <div class"container">
+                          <div class="row pt-2 pb-2 mt-2 mb-2 row-color">
+                            <div class="col-md-6 pt-3 titulo-color">
+                              Random shift
+                            </div>
+                            <div class="col-md-6">
+                              <button class="btn-color" id="boton-color"> Perimeter </button>
+                              <button class="btn-color" id="boton-color2"> Surface </button>
+                            </div>
+                          </div>
+                          <div class="row pt-2 pb-2 row-color">
+                            <div class="col-md-6 pt-2 titulo-color">
+                              Select
+
+                              <input type="color" id="boton-color4" class="btn-color-color" value="#FF0000">
+                            </div>
+                            <div class="col-md-6">
+                              <button class="btn-color" id="boton-color3"> Perimeter </button>
+                              <button class="btn-color" id="boton-color5"> Surface </button>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+
+                      <button class="btn-acordion btn-otros" data-info="otros"> Others </button>
+                      <div id="otros" class="otros">
+                        <h1> Others </h1>
+                        <div class="row pt-4">
+                          <div class="col-md-3">
+                            Perimeter wide
+                          </div>
+                          <div class="col-md-9">
+                            <input class="input-opacidad" type="range" id="input_ancho_perimetro" name="vol" min="0" max="6" step="0.01">
+                          </div>
+                        </div>
+                        <div class="row pt-4">
+                          <div class="col-md-3">
+                            Perimeter dash
+                          </div>
+                          <div class="col-md-9">
+                            <input class="input-opacidad" type="range" id="input_punteado_perimetro" name="vol" min="0" max="20" step="0.01">
+                          </div>
+                        </div>
+                        <div class="row pt-4">
+                          <div class="col-md-6">
+                            Perimeter dash offset
+                          </div>
+                          <div class="col-md-3">
+                            <input class="input-stroke" type="range" id="input_onoff_stroke" value ="0" step="1" min="0" max="1">
+                          </div>
+                        </div>
+
+
+
+                      </div>
+
+                      <button class="btn-acordion btn-reset-borrar" data-info="reset-borrar"> Reset </button>
+                      <div id="reset-borrar" class="reset-borrar">
+                        <button class="btn-expandir" id="resetstyle-todas"> Reset all layers </button>
+                        <button class="btn-expandir" id="borrar-todo"> Delet All </button>
+                      </div>
+
+
+                    </div>
+                </div>
+
+                <div class="leaflet-sidebar-pane" id="capas">
+                    <h1 class="leaflet-sidebar-header">
+                        Layers
+                        <span class="leaflet-sidebar-close"><i class="fa fa-layer-group"></i></span>
+                    </h1>
+                    <button class="btn-acordion capa-argentina" data-info="argentina2" > Argentina  </button>
+                    <div class="capas capas2" id="argentina2">
+                      <input class="rtaV0" id="ar" type="checkbox" data-id="Argentina" data-class="argentina">
+                      <label for="ar">
+                        <div class="imgimg arg">
+                          <div class="boton-argentina-texto text-center">
+                            Argentina Continent
+                          </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                      <input class="rtaV0" id="pr" type="checkbox" data-id="Provincias" data-class="provincias">
+                      <label for="pr">
+                        <div class="imgimg prov">
+                          <div class="boton-argentina-texto text-center">
+                            Provinces
+                          </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                      <button class="btn-expandir" id="resetstyle"> Reset </button>
+                      <input class="rtaV0" id="dep" type="checkbox" data-id="Departamentos" data-class="departamentos">
+                      <label for="dep">
+                        <div class="imgimg dep">
+                          <div class="boton-argentina-texto text-center">
+                            Departments
+                          </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                      <button class="btn-expandir" id="resetstyle2"> Reset </button>
+                      <input class="rtaV0" id="imgrta2" type="checkbox" data-id="Areas Protegidas" data-class="areasprotegidas">
+                      <label for="imgrta2">
+                        <div class="imgimg">
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                    <!-- termina argentina -->
+
+
+
+                    <!-- Empieza CARBONO -->
+                    <button class="btn-acordion capa-carbono" data-info="carbono2" > Carbon <i class="fa fa-cloud"></i> </button>
+                    <div class="capas capas2" id="carbono2">
+                      <input class="rtaV0" id="cbm_label" type="checkbox" data-id="Carbono en Biomasa" data-class="cbm">
+                      <label for="cbm_label">
+                        <div class="imgimg">
+                          <div class='boton-animales-texto text-center'> Biomass Carbon </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                      <input class="rtaV0" id="cos_label" type="checkbox" data-id="Carbono en Suelo" data-class="cos">
+                      <label for="cos_label">
+                        <div class="imgimg">
+                          <div class='boton-animales-texto text-center'> Vulnerable Soil Carbon </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+
+                    <!-- Empieza AGUA -->
+                    <button class="btn-acordion capa-agua" data-info="agua2"> Water <i class="fa fa-tint"></i> </button>
+                    <div class="capas capas2" id="agua2">
+                      <input class="rtaV0" id="h2o_label" type="checkbox" data-id="Agua" data-class="h2o">
+                      <label for="h2o_label">
+                        <div class="imgimg">
+                          <div class='boton-animales-texto text-center'> Water </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+
+                    <!-- Empieza BIODIVERSIDAD -->
+                    <button class="btn-acordion capa-bio" data-info="biodiversidad2"> Biodiversity <i class="fa fa-seedling"></i> <!-- <div class="icono"><div class="imgicono1"></div>  </div> --> </button>
+                    <div class="capas capas2 capas3" id="biodiversidad2">
+
+                      <button class="btn-acordion capa-eco" data-info="ecorregiones"> Ecorregions <i class="fa fa-tree"></i> </button>
+                      <div class="capas capas2" id="ecorregiones">
+                      </div>
+
+                      <button class="btn-acordion capa-animales" data-info="animales"> Animals <i class="fa fa-frog" style="font-size:19px"></i> </button>
+                      <div class="capas" id="animales">
+                          <button class="btn-acordion capa-animales-clases" data-info="animales-anfibios"> Amphibians <i class="fa fa-frog" style="font-size:13px"></i> </button>
+                          <div class="capas" id="animales-anfibios">
+
+                            <div class="buscador-spp2 text-center">
+                               <input class="buscador-spp" type="text"> <i class="fa fa-search"> </i>
+                               <select class="select-buscador">
+                                 <option value="familia"> Families </option>
+                                 <option value="especie"> Species </option>
+                               </select>
+                            </div>
+
+                          </div>
+
+                          <button class="btn-acordion capa-animales-clases" data-info="animales-aves"> Birds <i class="fa fa-crow" style="font-size:13px"></i> </button>
+                          <div class="capas" id="animales-aves">
+
+                            <div class="buscador-spp2 text-center">
+                               <input class="buscador-spp" type="text"> <i class="fa fa-search"> </i>
+                               <select class="select-buscador">
+                                 <option value="familia"> Families </option>
+                                 <option value="especie"> Species </option>
+                               </select>
+                            </div>
+
+                          </div>
+                          <button class="btn-acordion capa-animales-clases" data-info="animales-mamiferos"> Mammals <i class="fa fa-paw" style="font-size:13px"></i> </button>
+                          <div class="capas" id="animales-mamiferos">
+
+                            <div class="buscador-spp2 text-center">
+                               <input class="buscador-spp" type="text"> <i class="fa fa-search"> </i>
+                               <select class="select-buscador">
+                                 <option value="familia"> Families </option>
+                                 <option value="especie"> Species </option>
+                               </select>
+                            </div>
+                          </div>
+                          <button class="btn-acordion capa-animales-clases" data-info="animales-reptiles"> Reptiles <i class="fa fa-otter" style="font-size:13px"></i> </button>
+                          <div class="capas" id="animales-reptiles">
+
+                            <div class="buscador-spp2 text-center">
+                               <input class="buscador-spp" type="text"> <i class="fa fa-search"> </i>
+                               <select class="select-buscador">
+                                 <option value="familia"> Families </option>
+                                 <option value="especie"> Species </option>
+                               </select>
+                            </div>
+                          </div>
+                      </div>
+                      <button class="btn-acordion capa-plantas" data-info="plantas"> Plants <i class="fa fa-seedling"></i> </button>
+                      <div class="capas" id="plantas">
+                          <button class="btn-acordion capa-plantas-clases" data-info="plantas-clases"> Classes <i class="fa fa-seedling"></i> </button>
+                          <div class="capas" id="plantas-clases">
+
+                          </div>
+                      </div>
+                    </div>
+                    <!-- termina biodiversidad -->
+                    <!-- termina inputs naturemap (A, B, C)-->
+
+                    <!-- Empieza Cultivos -->
+
+                    <button class="btn-acordion capa-cultivos" data-info="cult" > Crops <i class="fa fa-leaf"></i> </button>
+                    <div class="capas capas2" id="cult">
+                      <button class="btn-acordion capa-cultivos2" data-info="soja" > Soya </button>
+                      <div class="capas capas2" id="soja">
+                        <!-- input con rasters.js -->
+                      </div>
+                      <button class="btn-acordion capa-cultivos2" data-info="maiz" > Corn </button>
+                      <div class="capas capas2" id="maiz">
+                        <!-- input con rasters.js -->
+                      </div>
+                      <button class="btn-acordion capa-cultivos2" data-info="girasol" > Sunflower </button>
+                      <div class="capas capas2" id="girasol">
+                        <!-- input con rasters.js -->
+                      </div>
+                      <button class="btn-acordion capa-cultivos2" data-info="vid" > Vine </button>
+                      <div class="capas capas2" id="vid">
+                        <!-- input con rasters.js -->
+                      </div>
+
+
+
+
+                    </div>
+
+
+
+                    <!-- EMPIEZA NATUREMAP -->
+                    <button class="btn-acordion capa-naturemap" data-info="naturemap" > NatureMap 1.0 <i class="fa fa-globe-americas"></i> </button>
+                    <div class="capas capas2" id="naturemap">
+                      <input class="rtaV1" id="nat0" type="checkbox" data-id="NatureMap 0" data-class="naturemap0">
+                      <label for="nat0">
+                        <div class="imgimg imgimg-naturemap">
+                          <div class="boton-animales-texto text-center">
+                            Start
+                          </div>
+                          <div class="chequeado">
+                            <img src="img/check.png" width="30px">
+                          </div>
+                        </div>
+                      </label>
+
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="text-center triangulo-letra"> <i class="fa fa-seedling"></i></div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="triangulo">
+
+                                <div class="triangulo2">
+                                </div>
+                                <div class="triangulo3 text-center">
+
+                                  <div class="gigante text-center territorio" id="territorio"> 13 </div>
+
+
+                                  <div class="pelotita"> </div>
+
+                                  <div class="droppis drops" id="droppable1" data-id="1"></div>
+                                  <div class="droppis drops" id="droppable2" data-id="2"></div>
+                                  <div class="droppis drops" id="droppable3" data-id="3"></div>
+                                  <div class="droppis drops" id="droppable4" data-id="4"></div>
+                                  <div class="droppis drops" id="droppable5" data-id="5"></div>
+                                  <!-- Segunda Fila -->
+                                  <div class="droppis drops2" id="droppable6" data-id="6" ></div>
+                                  <div class="droppis drops2" id="droppable7" data-id="7" ></div>
+                                  <div class="droppis drops2" id="droppable8" data-id="8" ></div>
+                                  <div class="droppis drops2" id="droppable9" data-id="9" ></div>
+                                  <!-- Tercera Fila -->
+                                  <div class="droppis drops3" id="droppable10" data-id="10" ></div>
+                                  <div class="droppis drops3" id="droppable11" data-id="11" ></div>
+                                  <div class="droppis drops3" id="droppable12" data-id="12" ></div>
+                                  <!-- Cuarta Fila -->
+                                  <div class="droppis drops4" id="droppable13" data-id="13" ></div>
+                                  <div class="droppis drops4" id="droppable14" data-id="14" ></div>
+                                  <!-- Quinta Fila -->
+                                  <div class="droppis drops5" id="droppable15" data-id="15" ></div>
+                                </div>
+
+                              </div>
+                            </div>
+                            <div class="col-md-1" style="padding-left: 0px;margin-left:-10px">
+                              <div class=" triangulo-letra" style="display:inline-block">  <i class="fa fa-cloud"></i></div>
+                            </div>
+                            <div class="col-md-1 offset-md-10">
+                              <div class=" triangulo-letra" >  <i class="fa fa-tint"></i></div>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                        <div id="izq"></div>
+                        <div class="container">
+                          <div class="row" id="barrita">
+                              <div id="barrita-c" data-id = "carbono" class="text-center"></div>
+                              <div id="barrita-a" data-id = "agua" class="text-center"></div>
+                              <div id="barrita-b" data-id = "biodiversidad" class="text-center"></div>
+                          </div>
+                        </div>
+
+                        <div class="row espaciado">
+                          <div class="col-md-12">
+                            <input id="comparar-nat2" class="comparar-nat" type="checkbox">
+                            <label for="comparar-nat2">
+                              <div class="imgimg img-comp text-center">
+                                Compare Solutions
+                                <div class="chequeado">
+                                  <img src="img/check.png" width="20px">
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="row espaciado">
+                          <div class="col-md-12">
+                              <div class="texto-nat-ter text-center col-md-7"> Land (%):</div>
+                              <div class="texto-nat-ter text-center territorio col-md-1" style="display:inline-block;" id="territorio"> 13 </div>
+                          </div>
+                          <div class="col-md-12 inputs-naturemap">
+                            <input class="input-nat input-nat-t" id="input-nat-t" data-id="territorio" type="range" min="0" max="6" step="1" value = "0"><br>
+                          </div>
+                        </div>
+
+                        <div class="row espaciado">
+                            <div class="col-md-5">
+                                <div class="texto-nat"> Carbon (%):</div>
+                                <div style="display:inline-block" id="carbono"> </div>
+                            </div>
+                            <div class="col-md-6 inputs-naturemap">
+                              <input class="input-nat input-nat-c" id="input-nat-c" data-id="carbono" type="range" min="0" max="100" step="1" value = "0" disabled>
+                            </div>
+                        </div>
+                        <div class="row espaciado" >
+                            <div class="col-md-5">
+                                <div class="texto-nat"> Water (%):</div>
+                                <div style="display:inline-block" id="agua"> </div>
+                            </div>
+                            <div class="col-md-6 inputs-naturemap">
+                              <input class="input-nat input-nat-a" id="input-nat-a" data-id="agua" type="range" min="0" max="100" step="1" value = "0" disabled>
+                            </div>
+                        </div>
+                        <div class="row espaciado">
+                            <div class="col-md-5">
+                                <div class="texto-nat"> Biodiversity (%): </div>
+                                <div style="display:inline-block" id="biodiversidad"> </div>
+                            </div>
+                            <div class="col-md-6 inputs-naturemap">
+                              <input class="input-nat input-nat-b" id="input-nat-b" data-id="biodiversidad" type="range" min="0" max="100" step="1" value = "0" disabled>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- termina naturemap -->
+
+ <!-- <div id="prueba_load"></div> ESTA AL FONDO DE funciones.js -->
+
+
+                    <button class="btn-acordion capa-otros_otros" data-info="otros_otros" > Others <i class="fa fa-caret-down"></i> </button>
+                    <div class="capas capas2" id="otros_otros">
+
+                      <!-- <input type="text" class="new_wms"> -->
+                      <!-- Empieza IGN -->
+                      <button class="btn-acordion capa-ign" data-info="ign" > IGN </button>
+                      <div class="capas capas2" id="ign">
+                        <input class="rtaV0" id="ign_label" type="checkbox" data-id="" data-class="">
+                        <label for="ign_label">
+                          <div class="container pt-3 pb-3">
+                            <div class="row pb-3">
+                              <div class="logo_ign">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <select class="select-layer-others" id="ign_layers">
+                                <option value="none" > Select Layer </option>
+                              </select>
+                            </div>
+                            <div class="row text-center pt-2">
+                              <div class="col-6">
+                                <button class="btn-others" id="ign_layer_in"> Insert </button>
+                              </div>
+                              <div class="col-6">
+                                <button class="btn-others tilelayer_rmv"> Delet </button>
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+
+                      <!-- Empieza NASA -->
+                      <button class="btn-acordion capa-nasa" data-info="nasa_nasa" > NASA </button>
+                      <div class="capas capas2" id="nasa_nasa">
+                        <input class="rtaV0" id="nasa_label" type="checkbox" data-id="" data-class="">
+                        <label for="nasa_label">
+                          <div class="container pt-3 pb-3">
+                            <div class="row pb-3">
+                              <div class="logo_nasa">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <select class="select-layer-others" id="nasa_layers">
+                                <option value="none" > Select Layer  </option>
+                              </select>
+                            </div>
+                            <div class="row text-center pt-2">
+                              <div class="col-6">
+                                <button class="btn-others" id="nasa_layer_in"> Insert </button>
+                              </div>
+                              <div class="col-6">
+                                <button class="btn-others tilelayer_rmv"> Delet </button>
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+
+                      <!-- Empieza Human Footprint -->
+                      <button class="btn-acordion capa-foot" data-info="foot_foot" > Human Footprint </button>
+                      <div class="capas capas2" id="foot_foot">
+                        <input class="rtaV0" id="foot_label" type="checkbox" data-id="" data-class="">
+                        <label for="foot_label">
+                          <div class="container pt-3 pb-3">
+                            <div class="row pb-3">
+                              <div class="logo_nasa">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <select class="select-layer-others" id="footprint_layers">
+                                <option value="none" > Select Layer  </option>
+                              </select>
+                            </div>
+                            <div class="row text-center pt-2">
+                              <div class="col-6">
+                                <button class="btn-others" id="footprint_layer_in"> Insert </button>
+                              </div>
+                              <div class="col-6">
+                                <button class="btn-others tilelayer_rmv"> Delet </button>
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                      <!--
+                      <button class="btn-acordion capa-agro" data-info="agro" > Agro </button>
+                      <div class="capas capas2" id="agro">
+                        <input class="rtaV0" id="agro_label" type="checkbox" data-id="Cultivos" data-class="cultivos">
+                        <label for="agro_label">
+                          <select class="footprint_select" id="agro_layers" > </select>
+                          <button id="agro_layer_in"> Insertar </button>
+                          <button class="tilelayer_rmv"> Remover </button>
+                        </label>
+                      </div>
+                    -->
+
+                      <!-- Empieza MAS WMS A -->
+                      <button class="btn-acordion capa-maswms" data-info="maswms" > More Arg WMS </button>
+                      <div class="capas capas2" id="maswms">
+                        <input class="rtaV0" id="maswms_label" type="checkbox" data-id="" data-class="">
+                        <label for="maswms_label">
+                          <div class="container pt-3 pb-3">
+                            <div class="row pb-3">
+                              <div class="logo_argentinagobar">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <select class="select-layer-others" id="servers_maswms">
+                                <option value="none" > Select Institution </option>
+                              </select>
+                            </div>
+                            <div class="row pt-1 pb-1">
+                              <div class="col-12">
+                                <select class="maswms_select" id="maswms_layers" > </select>
+                              </div>
+                            </div>
+                            <div class="row text-center pt-2">
+                              <div class="col-6">
+                                <button class="btn-others" id="maswms_layer_in"> Insert </button>
+                              </div>
+                              <div class="col-6">
+                                <button class="btn-others tilelayer_rmv"> Delet </button>
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+
+                      <!-- PRONOSTICOS -->
+                      <button class="btn-acordion capa-pronos" data-info="pronos" > Forecast </button>
+                      <div class="capas capas2" id="pronos">
+                        <input class="rtaV0" id="pronos_label" type="checkbox" data-id="" data-class="">
+                        <label for="pronos_label">
+                          <div class="container pt-3 pb-3">
+                            <div class="row pb-3">
+                              <div class="logoo_pronos">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <select class="select-layer-others" id="pronos_layers">
+                                <option value="none" > Select Layer </option>
+                              </select>
+                            </div>
+                          <!--  <div class="row pt-1 pb-1">
+                              <div class="col-12">
+                                <select class="maswms_select" id="maswms_layers" > </select>
+                              </div>
+                            </div> -->
+                            <div class="row text-center pt-2">
+                              <div class="col-6">
+                                <button class="btn-others" id="pronos_layer_in"> Insert </button>
+                              </div>
+                              <div class="col-6">
+                                <button class="btn-others tilelayer_rmv"> Delet </button>
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+
+                        <!-- SUELOS -->
+                        <button class="btn-acordion capa-cultivos" data-info="suelos" > Soils <i class="fa fa-leaf"></i> </button>
+                      <div class="capas capas2" id="suelos">
+                        <input class="rtaV0" id="cult_label" type="checkbox" data-id=" " data-class=" ">
+                        <label for="cult_label">
+                          <div class="container pt-3 pb-3">
+                            <div class="row pb-3">
+                              <div class="logo_suelos">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <select class="select-layer-others" id="suelos_layers">
+                                <option value="none" > Select Soil </option>
+                              </select>
+                            </div>
+                            <div class="row pt-1 pb-1">
+                              <div class="col-12">
+                                <select class="maswms_select" id="suelos_layers_2" > </select>
+                              </div>
+                            </div>
+                            <div class="row text-center pt-2">
+                              <div class="col-6">
+                                <button class="btn-others" id="suelos_layer_in"> Insert </button>
+                              </div>
+                              <div class="col-6">
+                                <button class="btn-others tilelayer_rmv"> Delet </button>
+                              </div>
+                            </div>
+                          </div>
+
+                        </label>
+                      </div>
+
+
+                    </div>
+
+
+                    <button class="btn-acordion" data-info="nuevascapas2"> Added Layers <i class="fa fa-layer-group"></i> </button>
+                    <div id="nuevascapas2" class="nuevascapas2 text-center">
+                      <div id="nuevascapas"> </div>
+                    </div>
+
+                    <button class="btn-acordion btn-historial" data-info="historial"> Layers History <i class="fa fa-history"></i> </button>
+                    <div id="historial" class="capa-historial text-center container">
+                      <div class="row">
+                        <div class="col-md-12" id="capas-historial">
+
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+
+
+                <div class="leaflet-sidebar-pane" id="mas">
+                    <h1 class="leaflet-sidebar-header"> More information <span class="leaflet-sidebar-close"><i class="fa fa-plus"></i></span></h1>
+
+                    <div id="resultado" class="container-fluid bottom">
+                    </div>
+                    <div id="resultado2" class="container-fluid bottom2">
+                    </div>
+
+                    <button class="btn-acordion btn-graficos" data-info="graficos"> Images </button>
+                    <div class="row capas" id="graficos">
+                        <div class="grafico">
+                          <div class=" owl-carousel owl-theme owl-loaded" id="carouselmapa" >
+                            <div class="owl-stage-outer">
+                              <div class="owl-stage">
+                                <div class="owl-item altura-owl">
+
+                                  <div class="altura-img">
+                                    <img id="grafico" class="col-md-12 text-center graficoimg" src="">
+                                  </div>
+                                  <div id="info" class="col-md-12 info text-center"></div>
+                                </div>
+                                <div class="owl-item altura-owl">
+                                  <div class="altura-img">
+                                    <img id="grafico2" class="col-md-12 text-center graficoimg">
+                                  </div>
+                                  <div id="info2" class="col-md-12 info text-center"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="btn-expandir" id="modal"> Wide Image </button>
+                    </div>
+
+                    <button class="btn-acordion btn-graficos" data-info="informacion"> Information </button>
+                    <div class="row capas" id="informacion">
+                      <div class="informacion">
+                        <div id="masinfo" class="col-md-12 info text-center"></div>
+                      </div>
+                    </div>
+                    <!--
+                    <button id="prueba_marker_in"> In </button>
+                    <button id="prueba_marker_out"> Out </button>
+-->
+                </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY - MODAL -->
+<div class="modal">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="modal2" id="modal3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal-graficos">
+  <div class="barras" id="barras1">
+  </div>
+  <div class="barras">
+    <div class=" owl-carousel owl-theme owl-loaded" id="carousel_barras" >
+      <div class="owl-stage-outer">
+        <div class="owl-stage" id="barras4">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="recuadro">
+  Seleccione en que gráfico desea agregar esta capa para comparar.
+</div>
+
+<div class="loading">
+  <div class="loading2">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
+</div>
+
+</body>
+
+
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+<!-- BOOSTRAP -->
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
+<!-- -->
+
+<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/smooth-scroll.min.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script type="text/javascript" src="capas/hola2.js"></script>
+<script type="text/javascript" src="capas/timedimension_prueba.js"></script>
+
+<!--<script type="text/javascript" src="argentinageojson.js"></script> -->
+<script type="text/javascript" src="fontawesome/js/all.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+<script type="text/javascript" src="js/plotly-latest.min.js"></script>
+<script type="text/javascript" src="js/leaflet.filelayer.js"></script>
+<script type="text/javascript" src="js/togeojson.js"></script>
+<!--<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+-->
+<script type="text/javascript" src="js/leaflet.draw.js"></script>
+
+<script type="text/javascript" src="js/leaflet-search.src.js"></script>
+<script type="text/javascript" src="js/leaflet-sidebar.js"></script>
+<script type="text/javascript" src="js/iso8601.min.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.util.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.layer.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.layer.wms.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.player.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.control.js"></script>
+<script type="text/javascript" src="js/leaflet.timedimension.layer.geojson.js"></script>
+<script type="text/javascript" src="js/leaflet.print.js"></script>
+<script type="text/javascript" src="js/iconlayers.js"></script>
+<!--script type="text/javascript" src="js/bundle2.js"></script> -->
+<script src="js/leaflet.browser.print.js"></script>
+<script src="js/domtoimg.js"></script>
+<script src="capas/wind/leaflet-velocity.js"></script>
+
+<script src="capas/especies.js"></script>
+
+<!-- CAPAS ARGENTINA -->
+<script src="capas/argentina/argentina.js"></script>
+<script src="capas/argentina/provincias.js"></script>
+<script src="capas/argentina/departamentos.js"></script>
+
+<!-- CAPAS ABC h2o_2km_re  -->
+<script src="capas/areasprotegidas.js"></script>
+<script src="capas/abc/h2o.js"></script>
+<script src="capas/abc/cbm.js"></script>
+<script src="capas/abc/cos.js"></script>
+
+
+
+<script src="capas/familias_anfibios.js"></script>
+<script src="capas/familias_reptiles.js"></script>
+<script src="capas/familias_mamiferos.js"></script>
+<script src="capas/familias_aves.js"></script>
+<script src="capas/bio_prom.js"></script>
+<script src="capas/bio_prom_endemicas.js"></script>
+<script src="capas/metas_elem.js"></script>
+<script src="capas/metas_spps.js"></script>
+<script src="capas/ecorregiones.js"></script>
+
+<script type="text/javascript" src="capas/capas_wms_arg.js"></script>
+<script type="text/javascript" src="capas/suelos_wms.js"></script>
+
+
+<script src="https://unpkg.com/proj4"></script>
+<script src="https://unpkg.com/georaster"></script>
+<script src="https://unpkg.com/georaster-layer-for-leaflet/georaster-layer-for-leaflet.browserify.min.js"></script>
+
+
+
+
+
+
+<script>
+/* Necesito esto aca porque lo uso en funciones.js AJAX */
+var searchlayers = L.layerGroup();
+</script>
+
+<script src="js/rasters_ingles.js"></script>
+<script src="js/funciones.js"></script>
+
+
+<script>
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* GRAFICO VACIO DE NATUREMAP SOLUCIONES */
+
+var x11 = ["Vulnerable Soil Carbon"," Biomass Carbon","Water","Biodiversity", "Endemic Biodiversity"];
+var y1 = [0.1,0.1,0.1,0.1,0.1];
+
+var trace1 = {
+  x: x11,
+  y:y1,
+  type: "bar",
+  name:" ",
+  showlegend: false,
+  opacity:0,
+  nbinsx:1,
+  xbins:{
+    size:0.1
+  },
+  histfunc:"sum",
+  histnorm:"",
+  marker:{
+    // line:{width:10,color:"red"}, BORDE
+    color: "rgba(100, 200, 102, 1)" //"green"
+  }
+};
+
+var datata = [trace1];
+
+var layouttt = {
+    barmode: "group",//"relative",//"stack",
+    bargap: 0.2,
+    bargroupgap: 0,
+    paper_bgcolor:"rgba(0,0,0,0)",
+    plot_bgcolor:"rgba(0,0,0,0)",
+    width: 500,
+    height: 400,
+    legend:{
+      font:{
+        color:"white"
+      }
+    },
+    title:{
+      text:"NATUREMAP <br> Target Fulfillment",
+      font:{
+        color:"white"
+      }
+    },
+    xaxis:{color:"white"},
+    yaxis:{color:"rgba(255,255,255,1)",
+      type:"linear",
+      range:[0,1],
+      tickmode:"linear",
+      //nticks:100,
+      tick0:0,
+      dtick:0.1
+    }
+  };
+
+var config2 = {
+  displaylogo:false,
+  showEditInChartStudio: true,
+  plotlyServerURL: "https://chart-studio.plotly.com"
+};
+
+Plotly.newPlot('barras1', datata, layouttt,config2);
+graf_toolbar();
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* Agrego TODOS los botones de las ESPECIES al SIDEBAR */
+agregar_fam_y_spp(especies)
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* CREO MAPA LEAFLET, con opciones de TIMEDIMENSION */
+
+var mymap = L.map('mapid', {
+  center: [-36, -65],
+  zoom: 4,
+  //crs: L.CRS.EPSG4326,
+  timeDimension: true,
+  timeDimensionOptions: {
+    times: [1496314227000, 1584263027000],
+    currentTime: 1496314227000,
+    //timeInterval: "2014-10-20/2014-10-30",
+    //period: "P1D" //"PT1H"
+  },
+  timeDimensionControl: true,
+  timeDimensionControlOptions: {
+    autoPlay: false,
+    loopButton: true,
+    timeSteps: 1,
+    playReverseButton: true,
+    limitSliders: true,
+    position:"bottomleft",
+    speedSlider:true,
+    playerOptions: {
+        buffer: 0,
+        transitionTime: 250,
+        loop: true,
+    }
+  }
+  //drawControl:true
+});
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* TODOS LOS LOADINGS (NO BORRAR, FUTURO TAL VEZ SE USE) */
+// mymaps_events(mymap);
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* DEFINO TOODO DEL MAPA */
+
+/* Capas de BACKGROUND */
+var basemaps = {
+    Places: L.tileLayer.wms('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+        layers: 'OSM-Overlay-WMS',
+        attribution:"OSM-Overlay-WMS  <div class='coordenadas'> </div>"
+    }),
+  //  Argentina: L.geoJSON(argentina),
+    Earth:  L.tileLayer.wms('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}',{
+      attribution:" GoogleMap-Satelite  <div class='coordenadas'> </div> ",
+      //crs: L.CRS.EPSG4326
+    }),
+    Topo: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{
+      attribution:"Opentopomap  <div class='coordenadas'> </div>"
+    })
+};
+/* Creo Control de Capas Background */
+var iconLayersControl = new L.Control.IconLayers(
+  [{
+    title: 'Satelite', // use any string
+    layer: basemaps.Earth, // any ILayer
+    icon: 'img/background/satelite.png' // 80x80 icon
+  },
+  {
+    title: 'Topo',
+    layer: basemaps.Topo,
+    icon: 'img/background/topo.png'
+  },
+  {
+    title: 'Lugares',
+    layer: basemaps.Places,
+    icon: 'img/background/places.png'
+  }],
+  {
+    position: 'topright',
+    maxLayersInRow: 3
+    }
+);
+/* Agrego Control de Capas Background al mapa */
+iconLayersControl.addTo(mymap);
+iconLayersControl.setActiveLayer(basemaps.Earth);
+
+/* Agrego Escala */
+L.control.scale().addTo(mymap);
+
+/* Agrego COORDENADAS del mouse */
+var lat, long;
+mymap.on('mousemove', function(e) {
+  //coordenadas.remove();
+  lat=e.latlng.lat;
+  long=e.latlng.lng;
+  $(".coordenadas").text("| Lat: "+lat.toFixed(2)+", Lng: "+long.toFixed(2)+" |");
+});
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* PLAY - TIMEDIMENSION */
+
+var timeSeriesLayer = L.geoJSON(timedimension_prueba, null);
+var geojsonla = L.timeDimension.layer.geoJson(timeSeriesLayer,{
+  updateTimeDimension: true,
+  updateTimeDimensionMode: 'replace',
+  duration: 'PT30M'
+});
+
+/*PLAY - TIMEDIMENSION - WMS (Prueba)*/
+/*
+var wmsLayer_time = L.tileLayer.wms("https://neo.sci.gsfc.nasa.gov/wms/wms?",{
+  layers:"MYDAL2_D_AER_OD",
+  attribution: "NASA",
+  transparent:true,
+  format: "image/png",
+  crs: L.CRS.EPSG4326
+});
+var timedimension_nasa_wms = L.timeDimension.layer.wms(wmsLayer_time);
+timedimension_nasa_wms.addTo(mymap);
+*/
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* EMPIEZA STYLE DE CAPAS! */
+
+/* Tal vez sirva mas adelante
+function getColor(d) {
+    return d > 250 ? '#800026' :
+           d > 200  ? '#BD0026' :
+           d > 150  ? '#E31A1C' :
+           d > 100  ? '#FC4E2A' :
+           d > 50   ? '#FD8D3C' :
+           d > 30   ? '#FEB24C' :
+           d > 10   ? '#FED976' :
+                      '#FFEDA0';
+};
+function resetHighlight(e) {
+  geojson.resetStyle();
+};
+function highlightFeature(e) {
+    var layer = e.target;
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    };
+};
+*/
+
+
+/* Funcion Generica para los STYLES de las LAYERS */
+function fullstyle(color){
+  var fs = {
+      fillColor: color,
+      weight: 2,
+      opacity: 1,
+      color: color,
+      dashArray: '3',
+      fillOpacity: 0.5
+  };
+  return fs;
+}
+
+/* Style de Areas Protegidas, color fijo */
+function stylee(f) {
+  //var color = getColor(f.properties.gid);
+  var color = "#026202"; //Verde oscuro de Areas Protegidas
+  var rr = fullstyle(color);
+    return rr
+};
+
+/* Style Generico con Random Color */
+function stylegral(feature) {
+  var rr = fullstyle(random_color());
+    return rr
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* EMPIEZA onEachFeature DE CAPAS! */
+
+function onEachFeature(feature, layer) {
+  var popupContent1 = feature.properties.fna;
+  var popupContent2 = layer.feature.properties.fna;
+  var popupContent3 = layer.feature.properties.gid;
+  var style_fam={};
+
+   layer.on({
+        mouseover: function(e){
+          style_fam["color"] = e.target.options.color;
+          style_fam["fillColor"] = e.target.options.fillColor;
+          style_fam["weight"] = e.target.options.weight;
+          $("#resultado").text(popupContent2);
+          e.target.setStyle({color:"white",fillColor :'blue',weight:3});
+        },
+        mouseout: function(e){
+          e.target.setStyle({color: style_fam.color, fillColor:style_fam.fillColor, weight: style_fam.weight});
+          $("#resultado").text("");
+        },
+        click: function(e){
+          $("#resultado2").text("Nombre: "+popupContent2+" gid: "+popupContent3);
+          e.target.setStyle({fillColor :'blue'});
+          e.target.bindPopup(popupContent1);
+        }
+    });
+
+    $("#pruebainput2").on("input",function(){
+      var input2 = $("#pruebainput2").val();
+      if(input2==layer.feature.properties.gid){
+        layer.setStyle({fillColor :'blue'})
+      }
+      });
+
+};
+
+function eachfamilia(feature,layer){
+  var url=feature.properties.Family;
+  var urlcompleta = "img/animales/familias/"+url+".jpg";
+  var urlcompleta2 = "img/animales/familias/"+url+"2.jpg";
+
+  var clase = layer.feature.properties.Class;
+  var orden = layer.feature.properties.Order;
+  var familiaa = layer.feature.properties.Family;
+  var genero = layer.feature.properties.Genus;
+  var especie = feature.properties.Species;
+  var iucn = layer.feature.properties.Global;
+  var especie_guion="";
+  var link_aves = feature.properties.Link;
+
+  var style_fam={};
+
+  especie_guion = add_guion(especie,"-");
+/*
+  for (i of especie){
+    if (i==" "){
+      especie_guion = especie_guion + "-"
+    }
+    else{
+      especie_guion = especie_guion + i
+    }
+  }
+  */
+
+  layer.on({
+       mouseover: function(e){
+         style_fam["color"] = e.target.options.color;
+         style_fam["fillColor"] = e.target.options.fillColor;
+         style_fam["weight"] = e.target.options.weight;
+         e.target.setStyle({color:"white",fillColor :'blue',weight:3});
+         $("#resultado").html("<strong>Especie</strong>: "+especie+" ");
+       },
+       mouseout: function(e){
+           e.target.setStyle({color: style_fam.color, fillColor:style_fam.fillColor, weight: style_fam.weight});
+           $("#resultado").html("");
+       },
+       click: function(e){
+         e.target.bindPopup(especie);
+         $(".grafico").css("visibility","visible");
+         $(".informacion").css("visibility","visible");
+         $("#grafico").attr("src",urlcompleta);
+         $("#grafico2").attr("src",urlcompleta2)
+
+         var areafamilia = Math.floor(feature.properties.Area);
+
+         if(e.target.feature.properties.Class=="Mammalia"){
+           $("#info").html( "Example of family "+familiaa+". <br> Source: SAREM" );
+           $("#info2").html( "Example of family "+familiaa+". <br> Source: SAREM"  );
+           $("#masinfo").html("Area of this specie "+especie+" is "+areafamilia+" km2 <br> <a href='https://cma.sarem.org.ar/es/especie-nativa/"+especie_guion+"' target='_blank'> Más info en SAREM</a> " );
+         }
+         else if (e.target.feature.properties.Class=="Aves") {
+           $("#info").html( "Example of family "+familiaa+". <br> Fuente: E-bird" );
+           $("#info2").html( "Example of family "+familiaa+". <br> Fuente: E-bird"  );
+           $("#masinfo").html("Area of this specie "+especie+" is "+areafamilia+" km2 <br> <a href='"+link_aves+"' target='_blank'> Más info de la familia en E-Bird </a> " );
+         }
+         else{
+           $("#info").html( "Example of family "+familiaa+". <br> Fuente: Libro" );
+           $("#info2").html( "Example of family "+familiaa+". <br> Fuente: Libro"  );
+           $("#masinfo").text("Area of this specie "+especie+" is "+areafamilia+" km2" );
+         }
+         $("#resultado2").html("<strong>Clase</strong>: "+clase+". <strong>Orden</strong>: "+orden
+         +". <strong>Family</strong>: "+familiaa
+         +". <strong>Gender</strong>: <i>"+genero+"</i>"
+         +". <strong>Specie</strong>: <span style='font-style:italic'>"+especie
+         +"</span>. <strong> IUCN Category </strong>: "+iucn+".");
+         e.target.setStyle({fillColor :'blue'});
+
+         $("#modal").click(function(){
+           var pepepe = $("#graficos").find(".owl-item.active").children(".plots").attr("data-id");
+           if(pepepe=="activo"){
+             Plotly.newPlot('modal3', data, layout, configg);
+             $(".modal").show();
+           }
+         });
+       }
+   });
+
+};
+
+function eachprov(feature,layer){
+
+  var prov = layer.feature.properties.nam;
+  var color_prov = {};
+
+  layer.on({
+       mouseover: function(e){
+         color_prov["color"] = e.target.options.color;
+         color_prov["fillColor"] = e.target.options.fillColor;
+         color_prov["weight"] = e.target.options.weight;
+         e.target.setStyle({color:"white",fillColor :'blue',weight:3});
+         $("#resultado").html("Provincia:"+prov+" ");
+       },
+       mouseout: function(e){
+         if(e.target.options.opacity!=0){
+           e.target.setStyle({color: color_prov.color, fillColor:color_prov.fillColor, weight: color_prov.weight});
+         }
+       },
+       click: function(e){
+         e.target.bindPopup(prov);
+         $("#resultado2").html("Provincia:"+prov+" ");
+         provinciasjson.setStyle({opacity:0,fillOpacity:0});
+         layer.setStyle({fillColor :'blue',opacity:1,fillOpacity:0.1});
+       }
+   });
+};
+
+$("#resetstyle").click(function(){
+  provinciasjson.resetStyle();
+});
+$("#resetstyle2").click(function(){
+  depjson.resetStyle();
+});
+
+
+
+
+function eachdep(feature,layer){
+
+  var prov = layer.feature.properties.NAME_1;
+  var dep = layer.feature.properties.nam;
+  var color_dep = {};
+  layer.on({
+       mouseover: function(e){
+         $("#resultado").html("Departamento: "+dep+" ");
+         color_dep["color"] = e.target.options.color;
+         color_dep["fillColor"] = e.target.options.fillColor;
+         color_dep["weight"] = e.target.options.weight;
+         e.target.setStyle({color:"white",fillColor :'blue',weight:3});
+       },
+       mouseout: function(e){
+         if(e.target.options.opacity!=0){
+           //depjson.resetStyle(e.target);
+           e.target.setStyle({color: color_dep.color, fillColor:color_dep.fillColor, weight: color_dep.weight});
+         }
+       },
+       click: function(e){
+         e.target.bindPopup("Prov: "+prov+". Dep: "+dep);
+         $("#resultado2").html("Provincia: "+prov+". Departamento: "+dep+" ");
+         depjson.setStyle({opacity:0,fillOpacity:0});
+         layer.setStyle({fillColor :'blue',opacity:1,fillOpacity:0.1});
+       }
+   });
+
+};
+
+function each_eco(feature,layer){
+var nombre = layer.feature.properties.nam;
+var color_dep={};
+layer.on({
+   mouseover: function(e){
+     $("#resultado").html("Ecorregion: "+nombre+" ");
+     color_dep["color"] = e.target.options.color;
+     color_dep["fillColor"] = e.target.options.fillColor;
+     color_dep["weight"] = e.target.options.weight;
+     e.target.setStyle({color:"white",fillColor :'blue',weight:3});
+   },
+   mouseout: function(e){
+     if(e.target.options.opacity!=0){
+       //depjson.resetStyle(e.target);
+       e.target.setStyle({color: color_dep.color, fillColor:color_dep.fillColor, weight: color_dep.weight});
+     }
+   },
+   click: function(e){
+     e.target.bindPopup(nombre);
+     $("#resultado2").html("Ecorregion: "+nombre+".") ;
+   }
+});
+}
+
+function eachsolucion(feature,layer){
+var id = layer.feature.properties.id;
+layer.on({
+   mouseover: function(e){
+     //e.target.setStyle({fillColor :'blue'});
+     $("#resultado").html("sda");
+   },
+   mouseout: function(e){
+     if(e.target.options.opacity!=0){
+      // solucion.resetStyle(e.target);
+     }
+   },
+   click: function(e){
+     e.target.bindPopup(id);
+     $("#resultado2").html("Caracteristicas:"+id+" ");
+
+   }
+});
+    $(".grafico").css("visibility","visible");
+    $(".informacion").css("visibility","visible");
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* COSAS VARIAS A CHEQUEAR */
+
+$("#modal").click(function(){
+  var pepepe = $("#graficos").find(".owl-item.active").children(".plots").attr("data-id");
+  if(pepepe=="activo"){
+    $(".modal2").html(" ");
+    $(".modal2").css("padding-left","0px");
+  }
+  else{
+    var img = $("#graficos").find(".owl-item.active").children().children("img").attr("src");
+    $(".modal").show();
+    $(".modal2").css("padding-left","300px");
+    $(".modal2").html("<img src='"+img+"' width='100%'>");
+  };
+});
+$(".modal").click(function(){
+  $(this).hide();
+});
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* DEFINICION DE VARIABLES PARA USAR CAPAS GEOJSON */
+
+/* Defino Variables ABC y Areas Protegidas */
+var areasprotegidas = L.geoJson(areas_protegidas_capa, {
+    style: stylee,
+    onEachFeature: onEachFeature
+});
+var cbm = L.geoJson(cbm, {
+    style: style_carbono
+});
+var cos = L.geoJson(cos, {
+    style: style_carbono
+});
+var agua = L.geoJson(h2o, {
+  style:style_h2o //,
+  // onEachFeature: each_h2o
+});
+
+
+/* Def todo ARG: Arg, Provs y Deptos*/
+var provinciasjson = L.geoJSON(provincias,{
+  style:stylegral,
+  onEachFeature: eachprov
+});
+var depjson = L.geoJSON(departamentos,{
+  style:stylegral,
+  onEachFeature: eachdep
+});
+var arg = L.geoJSON(argentina,{
+  style:stylegral
+});
+
+/*A modo de ejemplo, puse la de ARGENTINA, pero tiene que ir la de cultivos */
+var cultivos_geojson = L.geoJSON(argentina,{style:stylegral});
+
+/* Defino Array "areas" IMPORTANTE PARA todo*/
+var areas = [
+  {nombre: "argentina", variable: arg},
+  {nombre: "provincias", variable: provinciasjson},
+  {nombre: "departamentos", variable: depjson},
+  {nombre:"areasprotegidas", variable: areasprotegidas},
+  {nombre:"cbm", variable: cbm },
+  {nombre:"cos", variable: cos },
+  {nombre:"h2o", variable: agua },
+  {nombre:"cultivos", variable:cultivos_geojson}
+];
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* HERRAMIENTAS DE DIBUJO (Lineas, Poligonos, etc) */
+
+/* Creacion de Capa de Dibujos y de Control de Dibujos*/
+var drawnItems = new L.FeatureGroup();
+mymap.addLayer(drawnItems);
+var drawControl = new L.Control.Draw({
+    edit: {
+        featureGroup: drawnItems
+    }
+});
+mymap.addControl(drawControl);
+
+/* Interactividad con los Dibujos */
+var counter_drawnitems=0;
+mymap.on('draw:created', function (e) {
+  counter_drawnitems +=1;
+  var layer = e.layer,
+    type = e.layerType,
+    feature = layer.feature = layer.feature || {}; // Intialize layer.feature
+
+  var colorlayer = random_color();
+
+   if (type !== 'marker') {
+      layer.setStyle({fillColor:colorlayer, color:colorlayer});
+      }
+
+    feature.type = feature.type || "Feature"; // Intialize feature.type
+    var props = feature.properties = feature.properties || {}; // Intialize feature.properties
+    props.title = "my title";
+    props.content = "my content";
+    drawnItems.addLayer(layer);
+    addPopup(layer);
+
+    areas.push({nombre: type+counter_drawnitems, variable:layer});
+    $(".select-capa").append("<option value='"+type+counter_drawnitems+"' class='drawed'> "+type+counter_drawnitems+" </option>");
+
+    /* Hay algo que no esta bien: Intentando reemplazar el append de arriba por JS posta posta
+    var selecccion = document.getElementById("select-capa")
+    var new_option = document.createElement("option")
+    new_option.innerHTML = type+counter_drawnitems
+    new_option.value = type+counter_drawnitems
+    new_option.className = "drawed"
+    seleccion.appendChild(new_option)
+    */
+
+});
+
+/* En caso de delet dibujo, elimino del select el dibujo */
+mymap.on("draw:deleted",function(e){
+  $(".drawed").remove();
+});
+
+/*Funcion que agrega al PopUp al Dibujo*/
+function addPopup(layer) {
+  var content = document.createElement("textarea");
+    content.addEventListener("keyup", function () {
+      layer.feature.properties.desc = content.value;
+    });
+    layer.on("popupopen", function () {
+      content.value = layer.feature.properties.desc;
+      content.focus();
+    });
+    layer.bindPopup(content).openPopup();
+};
+
+/* Esto NO se esta usando */
+    mymap.on('draw:edited', function (e) {
+        var layers = e.layers;
+        layers.eachLayer(function (layer) {
+            //do whatever you want; most likely save back to database
+        });
+    });
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* AGREGA AL HISTORIAL, AGREGA CAPA AL MAPA, AGREGA LAYER AL BUSCADOR,
+AGREGA AL SELECT */
+
+
+/* ESPECIES */
+
+/* Defino variable global para agarrar el color de la capa de las especies */
+var color_bar_layer;
+
+/* Llamo al servidor UNA vez */
+$(".imgimg5").one("click",function(){
+  var nommb = $(this).attr("id");
+  color_bar_layer = request_capa("especies",nommb,eachfamilia);
+  $(this).addClass("rtaV0");
+});
+
+/*
+imgimg5 es la CLASE de los inputs de las especies
+AGREGO/ELIMINO GRAFICO
+*/
+var counter=[];
+$(".imgimg5").click(function(){
+  var idid = $(this).attr("id");
+  var nom = $(this).attr("data-id");
+  var p_t5 = $("#input-nat-t").val();
+  var sol_num2 = $(".select-capa option:selected").attr("data-sol");
+  var nat_check = $("#nat0").is(":checked");
+
+  if (nat_check && $(this).is(":checked")){
+    counter.push(idid);
+    var counterlen = counter.length-1;
+    var ppa="<div class='owl-item altura-owl2' id='barras-"+idid+"' style='color:white'></div>";
+    /* Agrego grafico */
+    $('#carousel_barras').trigger('add.owl.carousel', [ppa,0] );
+    $('#carousel_barras').trigger('refresh.owl.carousel');
+
+    if (nat_check){
+      // Funciona bien solo si esta SELECCIONADA LA SOLUCION TAL (sol_num2).
+      add_grafico_spp(valores_territorio[p_t5],sol_num2,nom,color_bar_layer,idid);
+    }
+  }
+  else{
+    /* Elimino Grafico y componente de Array asociado */
+    var index1 = counter.indexOf(idid);
+    if (index1 != -1 ){
+      var index2 = counter.length - 1 - index1;
+      $('#carousel_barras').trigger('remove.owl.carousel', index2 );
+      $('#carousel_barras').trigger('refresh.owl.carousel');
+
+      /* Borro elemento especifico de la lista counter */
+      counter.splice(index1,1);
+    }
+  }
+
+});
+
+
+/* ECORREGIONES */
+/* Llamo al servidor UNA vez */
+$(".rtaV2").one("click",function(){
+  var nombre = $(this).attr("data-class");
+  request_capa("ecorregiones",nombre,each_eco);
+})
+
+
+/* MAS IMPORTANTE - TODAS LAS CAPAS */
+
+$(".rtaV0").on("click",function(){
+  // Defino variables a usar:
+  var capaclase = $(this).attr("data-class");
+  var capanueva = $(this).is(":checked");
+  var nombrecapa = $(this).attr("data-id");
+
+  /* Agrega capa al historial */
+  add_historial(".capashistorial-", capaclase, nombrecapa, mymap, areas);
+
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaclase;
+  }).variable;
+  var comparando = $(".comparar-nat").is(":checked");
+  if (capaclase=="areasprotegidas" && capanueva && comparando){
+    /* Agrega Grafico de AreasProtegidas si estan Comparando soluciones */
+    add_grafico_bio();
+  }
+  /* Agrega-remueve Capa al mapa, al buscador y al "select-capa" */
+  add_remove_layer( $(this), capagroup, capaclase, nombrecapa, mymap, searchlayers );
+});
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+/* Caracteristicas del CAROUSEL de Graficos de barras de Especies */
+$('#carousel_barras').owlCarousel({
+  loop: false,
+  margin: 0,
+  smartSpeed:1000,
+  navRewind: false,
+  touchDrag: true,
+  mouseDrag: true,
+  stagePadding: 0,
+  pagination: false,
+  dots:true,
+  dotsEach:true,
+  responsive: {
+    0: {
+    items: 1
+    },
+    968: {
+    items: 1
+    },
+    1200: {
+    items: 1,
+  }
+}
+});
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                      /* ACA EMPIEZAN EDICIONES */
+
+/* Traer al frente la capa seleccionada */
+$(".select-capa").on("click",function(){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  capagroup.bringToFront();
+});
+
+/* Cambiar Opacidad perimetro */
+$("#input_opacidad_perimetro").on("input",function(){
+  var input3 = $(this).val();
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var data_layer = $(".select-capa option:selected").attr("data-layer");
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  if(data_layer=="raster"){
+    capagroup.setOpacity(input3)
+  }
+  else{
+    capagroup.setStyle({
+      opacity:input3
+    });
+  }
+});
+
+/* Cambiar Opacidad superficie */
+$("#input_opacidad_superficie").on("input",function(){
+  var input4 = $(this).val();
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  capagroup.setStyle({
+    fillOpacity:input4
+  });
+});
+
+/* Cambiar Grosor perimetro */
+$("#input_ancho_perimetro").on("input",function(){
+  var input5 = $(this).val();
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  capagroup.setStyle({
+    weight:input5
+  });
+});
+
+/* Cambiar Punteado perimetro */
+$("#input_punteado_perimetro").on("input",function(){
+  var input6 = $(this).val();
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  capagroup.setStyle({
+    dashArray:input6
+  });
+});
+
+/* On-Off Perimetro */
+$("#input_onoff_stroke").on("input",function(){
+  var input7 = $(this).val();
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  if(input7==0){
+    capagroup.setStyle({
+      stroke:true
+    });
+  }
+  else{
+    capagroup.setStyle({
+      stroke:false
+    });
+  }
+});
+
+/* Cambia Aleatoriamente Color Perimetro de la capa seleccionada */
+$("#boton-color").click(function(){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+
+  var colorlayer = random_color();
+  capagroup.setStyle({
+    color:colorlayer
+  });
+  $("#boton-color").css("background-color"," "+colorlayer+" ")
+
+  /* Cambiar color del grafico de la sol de naturemap tambien */
+  var check_si_es_sol = $(".select-capa option:selected").attr("data-ter").length;
+  if( check_si_es_sol > 0){
+    graf_layer("comparar-nat2",capaseleccionada,colorlayer,"barras1",counter_sols);
+  }
+  /*else{
+    // Acopla colores de Graficos de Animales con la CAPA del MAPA
+    //Plotly.restyle("barras-"+capaseleccionada, 'marker.color', colorlayer)
+  }*/
+});
+
+/* Cambia Aleatoriamente el Color Superficie de la capa seleccionada */
+$("#boton-color2").click(function(){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  var colorlayer = random_color();
+  capagroup.setStyle({
+    fillColor:colorlayer
+  });
+  $("#boton-color2").css("background-color"," "+colorlayer+" ")
+});
+
+/* Cambia el Color Superficie de la capa seleccionada al color seleccionado */
+$("#boton-color3").click(function(){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  var colorcito = $("#boton-color4").val();
+  capagroup.setStyle({
+    color:colorcito
+  });
+  $("#boton-color3").css("background-color"," "+colorcito+" ");
+
+  var check_si_es_sol = $(".select-capa option:selected").attr("data-ter").length;
+  if( check_si_es_sol > 0){
+    graf_layer("comparar-nat2",capaseleccionada,colorcito,"barras1",counter_sols);
+  }
+ /* else{
+    // Acopla colores de Graficos de Animales con la CAPA del MAPA
+    Plotly.restyle("barras-"+capaseleccionada, 'marker.color', colorcito)
+  }*/
+});
+
+/* Cambia el Color Superficie de la capa seleccionada al color seleccionado */
+$("#boton-color5").click(function(){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+
+  var colorcito = $("#boton-color4").val();
+  capagroup.setStyle({
+    fillColor:colorcito
+  });
+  $("#boton-color5").css("background-color"," "+colorcito+" ");
+});
+
+/* TERMINAN EDICIONES */
+
+/* Estoy intentando ordenar TODAS las ediciones
+La idea es que todos tengan la misma clase, para no repetir
+*/
+// Chequear aca: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object/create
+var edit_layer = {
+  "opacidad_perimetro":function(capagroup, prop, input_val){
+    capagroup.setStyle({
+      prop:input_val
+    });
+  },
+}
+
+/*
+Sirve para:
+- opacidad per y sup
+- ancho perimetro
+- punteado
+-
+*/
+$(".ediciones").on("input",function(){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  var input_val = $(this).val();
+  var input_type = $(this).attr("id");
+  var prop = $(this).attr("data-prop");
+  //edit_layer[input_type](input_val)
+  edit_layer["opacidad_perimetro"](capagroup, prop,input_val)
+});
+
+
+
+
+/* obtener info LOS VIENTOS
+$.ajax({
+url:"https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets",
+data:"json",
+headers:{ token:"BsTuSWaGUykzdIJRLXUBtAcjSbMKMOLn" },
+sucess:function(data){console.log(data)}
+
+});
+
+*/
+
+/* VIENTOSSSSSSSSSSSSSSSSSSS WIND
+$.getJSON('https://danwild.github.io/leaflet-velocity/wind-global.json', function (data) {
+
+	var velocityLayer = L.velocityLayer({
+		displayValues: true,
+		displayOptions: {
+			velocityType: 'Global Wind',
+			displayPosition: 'bottomleft',
+			displayEmptyString: 'No wind data'
+		},
+		data: data,
+		maxVelocity: 15
+	});
+
+  velocityLayer.addTo(mymap)
+	//layerControl.addOverlay(velocityLayer, 'Wind - Global');
+});
+
+*/
+
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                            /* SIDEBAR */
+
+var sidebar = L.control.sidebar('sidebar',{
+    autopan: false,       // whether to maintain the centered map point when opening the sidebar
+    closeButton: true,    // whether t add a close button to the panes
+    container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
+    position: 'left'     // left or right
+});
+
+mymap.addControl(sidebar);
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                          /* EASY BUTTONS */
+
+L.easyButton( 'fa fa-play', function(){
+  $(".leaflet-control-scale").fadeToggle(100);
+  $(".leaflet-control-attribution").fadeToggle();
+  $(".leaflet-bar-timecontrol").fadeToggle(function(){
+    if($(".leaflet-bar-timecontrol").css('display') == 'block'){
+      geojsonla.addTo(mymap);
+    }
+    else{
+      mymap.removeLayer(geojsonla);
+    };
+  });
+  $(".leaflet-iconLayers-layersRow").fadeToggle();
+  $(".timecontrol-dateslider").insertAfter(".timecontrol-speed");
+
+}, "Proyección futura").addTo(mymap);
+
+L.easyButton( 'fa-search-plus', function(e){
+  var capaseleccionada = $(".select-capa option:selected").val();
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+    mymap.fitBounds(capagroup.getBounds());
+}).addTo(mymap);
+
+/* PROBANDO VIDEO */
+/*L.easyButton( 'fa-circle', function(e){
+  mymap.flyTo([-52.05,-72.05],14,{
+    animate:true,
+    duration:5,
+    easeLinearity:0.1
+  })
+}).addTo(mymap);
+
+var videoUrl = 'video.mp4',
+    videoBounds = [[ -52, -72], [ -52.1, -72.1]];
+var videoOverlay = L.videoOverlay(videoUrl, videoBounds, {autoplay:true,loop:true}).addTo(mymap);
+
+videoOverlay.on('load', function () {
+    var MyPauseControl = L.Control.extend({
+        onAdd: function() {
+            var button = L.DomUtil.create('button');
+            button.innerHTML = '⏸';
+            L.DomEvent.on(button, 'click', function () {
+                videoOverlay.getElement().pause();
+            });
+            return button;
+        }
+    });
+    var MyPlayControl = L.Control.extend({
+        onAdd: function() {
+            var button = L.DomUtil.create('button');
+            button.innerHTML = '▶️';
+            L.DomEvent.on(button, 'click', function () {
+                videoOverlay.getElement().play();
+            });
+            return button;
+        }
+    });
+
+    var pauseControl = (new MyPauseControl()).addTo(mymap);
+    var playControl = (new MyPlayControl()).addTo(mymap);
+});
+*/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+$('#carouselmapa').owlCarousel({ items:1, responsive: {0: {items: 1 } } });
+
+
+
+L.easyButton('fa-expand',function(e){
+  toggleFullScreen(document.body);
+
+  //document.body.requestFullscreen();
+  // document.exitFullscreen();
+}).addTo(mymap);
+
+
+document.addEventListener("fullscreenchange", function() {
+  var bot = $(".easy-button-button").children().children(".fa-expand");
+  var bot2 = $(bot).parents().parents(".easy-button-button");
+  $(bot2).toggleClass("btn-apretado");
+});
+document.addEventListener("mozfullscreenchange", function() {
+  var bot = $(".easy-button-button").children().children(".fa-expand");
+  var bot2 = $(bot).parents().parents(".easy-button-button");
+  $(bot2).toggleClass("btn-apretado");
+});
+document.addEventListener("webkitfullscreenchange", function() {
+  var bot = $(".easy-button-button").children().children(".fa-expand");
+  var bot2 = $(bot).parents().parents(".easy-button-button");
+  $(bot2).toggleClass("btn-apretado");
+});
+document.addEventListener("msfullscreenchange", function() {
+  var bot = $(".easy-button-button").children().children(".fa-expand");
+  var bot2 = $(bot).parents().parents(".easy-button-button");
+  $(bot2).toggleClass("btn-apretado");
+});
+
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/* EasyButton - SEARCH */
+var searchcounter=0;
+
+
+
+L.easyButton( 'fa fa-search', function(){
+
+  var searchControl;
+
+  var palabra = $("#buscador").val();
+  var capaseleccionada = $(".select-capa option:selected").val();
+
+  var capagroup = areas.find(function(e){
+    return e.nombre === capaseleccionada;
+  }).variable;
+  var namnam;
+  capagroup.addTo(searchlayers);
+
+
+  searchControl = new L.Control.Search({
+  position:"topleft",
+  layer: searchlayers,  // Determines the name of variable, which includes our GeoJSON layer!
+  propertyName: "nam",
+  marker: false,
+  textPlaceholder: 'Search...',
+  moveToLocation: function(latlng, title, mymap) {
+      var zoom = mymap.getBoundsZoom(latlng.layer.getBounds());
+      mymap.setView(latlng, zoom); // access the zoom
+      }
+  });
+
+  searchControl.on('search:locationfound', function(e) {
+    e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+    if(e.layer._popup)
+        e.layer.openPopup();
+    }).on('search:collapsed', function(e) {
+      searchlayers.eachLayer(function(layer) {   //restore feature color
+      searchlayers.resetStyle(layer);
+      });
+    });
+
+
+  if (searchcounter==0){
+    mymap.addControl( searchControl );
+    searchcounter=1;
+  };
+
+  if ( $("#nat0").is(":checked") != true){
+    $(".leaflet-iconLayers-layersRow").fadeToggle();
+    $(".leaflet-control-attribution").fadeToggle();
+  }
+  $(".leaflet-control-scale").fadeToggle();
+  $(".leaflet-control-search").fadeToggle();
+
+}).addTo(mymap);
+
+
+
+
+
+
+var valor;
+$('#buscador').on('input', function() {
+  valor = $("#buscador").val();
+});
+
+$("#buscar").click(function(){
+  searchControl.searchText( valor );
+});
+
+$("#buscar2").click(function(){
+  var result = '';
+  var fields = document.getElementsByClassName("search-tip");
+  for (var i=0; i<fields.length; i++) {
+      result += fields[i].textContent + '\n';
+    }
+  document.getElementById('copiasearch').innerHTML = result;
+
+});
+
+
+
+
+
+/////////////////////////////////////
+
+
+
+var stylela = {color:'#ee0033', opacity: 0.6, weight: 3, clickable: false};
+
+L.Control.FileLayerLoad.LABEL = '<i class="fa fa-upload"> </i>';
+
+var fileL = L.Control.fileLayerLoad({
+  fitBounds: true
+}).addTo(mymap);
+
+
+
+
+
+
+fileL.loader.on('data:loaded', function (e) {
+  e.layer.setStyle({
+    fillColor: "#A52A2A",
+    color: "#A52A2A"
+  });
+
+  var name2 = e.filename;
+  var name3=[];
+  for(i=0;i<name2.length;i++){
+    if(name2[i]!="."){
+      name3[i]=name2[i];
+    }
+    else{
+      break;
+    }
+  }
+  var name = name3.join("");
+
+  areas.push({nombre:name, variable:e.layer});
+
+$(".select-capa").append("<option value='"+name+"' class='"+name+"'>"+name+"</option>");
+
+  var inputcapanueva="<input style='display:none' data-class='"+name+"' data-id='"+name+"' id='"+name+"' type='checkbox' checked>";
+
+  var labelcapanueva= "<label for='"+name+"'> <div class='imgimg2'> Capa "+name+" <div style='display:block' class='chequeado'> <img src='img/check.png' width='30px'> </div> </div> </label>"
+
+//  $(".select-capa").append("<option value='"+name+"' class='"+name+"'> "+name+" </option>");
+  $("#nuevascapas").append("<div class='capasnuevas'>"+inputcapanueva+labelcapanueva+"</div>");
+    //btn-acordion nuevascapas3
+
+$(".capasnuevas").on("click",function(){
+  var capanueva = $(this).children("input").is(":checked");
+  var nombrecapa = $(this).children("input").attr("data-id");
+  var capaclase = $(this).children("input").attr("data-class");
+  var capagroup = areas.find(function(e){
+    return e.nombre === nombrecapa;
+  }).variable;
+  var check = $(this).children().children().children(".chequeado");
+
+  if(capanueva){
+    capagroup.addTo(mymap);
+    $(".select-capa").append("<option value='"+nombrecapa+"' class='"+capaclase+"'>"+nombrecapa+"</option>");
+    $(check).show();
+  }
+  else{
+    mymap.removeLayer(capagroup);
+    $(".select-capa").children("."+capaclase+" ").remove();
+    // $("."+capaclase+" ").remove();
+    $(check).hide();
+  }
+});
+
+
+});
+
+
+
+
+/*
+  mymap.addControl(new L.Control.Fullscreen({
+    position:"topleft"
+  }));
+*/
+</script>
+
+
+
+<script>
+
+$(".btn-acordion").click(function(){
+  var info = $(this).attr("data-info");
+  $("#"+info+" ").fadeToggle();
+});
+
+L.control.browserPrint({
+  title:"Imprimir Mapa",
+  documentTitle: 'Mapa Interactivo Impreso',
+  printModes:["Custom", "Landscape", "Portrait","Auto"],
+  printModesNames: {
+    Custom:"Seleccione un área",
+    Landscape:"Horizontal",
+    Portrait:"Vertical",
+    Auto:"Automático"
+  }
+}).addTo(mymap)
+
+var nn=2;
+$(".leaflet-browser-print").click(function(){
+  if(nn%2==0){
+    $(".browser-print-mode").css("visibility","visible");
+  }
+  else{
+    $(".browser-print-mode").css("visibility","hidden");
+  };
+  nn+=1;
+});
+
+
+
+</script>
+
+
+
+<script>
+
+
+// BOTONES APRETADOS
+
+$(".easy-button-button").click(function(){
+  /* Chequeo que no sea la lupa+ */
+  /* Luego dejo apretado el boton */
+  var lup = $(this).children().children(".fa-search-plus");
+  var bot = $(this).children().children(".fa-expand");
+  if (lup.length==0 && bot.length==0){
+    $(this).toggleClass("btn-apretado");
+  }
+
+});
+
+
+
+$(".leaflet-browser-print").click(function(){
+  $(this).toggleClass("btn-apretado");
+});
+
+
+/* Variacion de Barritas (Porcentajes y Consola on INPUT de Barritas) */
+
+/*
+$(".inputs-naturemap").children().on("input",function(){
+  var checked = $("#nat0").is(":checked");
+  if(checked){
+    var dataid = $(this).attr("data-id");
+    var valor1 = $(this).val();
+    if (dataid == "territorio"){
+      //var valores_territorio =[13,17,21,25,30,40,50];
+      $("."+dataid).html(valores_territorio[valor1]);
+    }
+    else{
+      $("#"+dataid).html(valor1);
+    }
+    var p_t = $("#input-nat-t").val();
+    var p_c = $("#input-nat-c").val();
+    var p_a = $("#input-nat-a").val();
+    var p_b = $("#input-nat-b").val();
+    var inputsp = [p_t,p_c,p_a,p_b];
+
+    var anch_triang = $(".triangulo3").width();
+    var alt_triang = $(".triangulo3").height();
+    var pos_pel = [$(".pelotita").css("left"),$(".pelotita").css("top")];
+
+
+// CARBONO
+    if (dataid == "carbono"){
+      var maxxb = parseInt((100 - valor1 - p_a));
+      var maxxa = parseInt((100 - valor1 - p_b));
+      $("#input-nat-a").attr("max",maxxa);
+      $("#input-nat-b").attr("max",maxxb);
+
+
+      if (valor1==0){
+        $("#barrita-c").html(" ");
+      }
+
+    }
+    else if (dataid == "agua") {
+      var maxxc = parseInt((100 - valor1 - p_b));
+      var maxxb = parseInt((100 - valor1 - p_c));
+      $("#input-nat-c").attr("max",maxxc);
+      $("#input-nat-b").attr("max",maxxb);
+
+
+
+      if (valor1==0){
+        $("#barrita-a").html(" ");
+      }
+    }
+    else if (dataid == "biodiversidad") {
+      var maxxc = parseInt((100 - valor1 - p_a));
+      var maxxa = parseInt((100 - valor1 - p_c));
+      $("#input-nat-c").attr("max",maxxc);
+      $("#input-nat-a").attr("max",maxxa);
+
+      if (valor1==0){
+        $("#barrita-b").html(" ");
+      }
+    }
+    else{
+      a=1;
+    }
+
+
+    $("#barrita-c").css("width", p_c+"%");
+    $("#barrita-c").html(p_c+"%")
+
+    $("#barrita-a").css("width", p_a+"%");
+    $("#barrita-a").html(p_a+"%")
+
+    $("#barrita-b").css("width", p_b+"%");
+    $("#barrita-b").html(p_b+"%")
+
+
+
+
+
+  }
+});
+*/
+
+
+
+</script>
+
+<script>
+var soluciones = L.featureGroup();
+
+$("#nat0").click(function(){
+  $(".pelotita").draggable({
+    revert:"invalid",
+    containment: "parent",
+    delay:1
+  //  stack:".triangulo",
+  //  snap:true,
+  //  snapTolerance:1
+    //cursorAt:{left:0, right:0, top:0, bottom:0}
+  });
+  /*
+  $(".pelotita").on("mousedown",function(e){
+    console.log(e.pageX);
+    $(".leaflet-sidebar-content").width(200);
+  });
+*/
+  if($(this).is(":checked")){
+    $(".pelotita").draggable("enable");
+  }
+  else{
+    $(".pelotita").draggable("disable");
+    soluciones.clearLayers();
+  }
+
+});
+
+
+/* Variacion de Barritas (Porcentajes y Consola) */
+
+$(".pelotita").on("drag",function(e,ui){
+  $("#input-nat-a").attr("max",100);
+  $("#input-nat-b").attr("max",100);
+  $("#input-nat-c").attr("max",100);
+  var anch_triang = $(".triangulo3").width();
+  var alt_triang = $(".triangulo3").height();
+
+  var izq = parseInt(ui.position.left);
+  var up = parseInt(ui.position.top);
+
+  //Parametrizacion de las rectas del triangulo. el 10 es una correccion visual.
+  var recta_der = anch_triang/(2*alt_triang)*up+anch_triang/2-10; //
+  var recta_izq = - anch_triang/(2*alt_triang)*up+anch_triang/2-10;
+
+  if( izq < recta_izq ){
+    ui.position.left = recta_izq;
+  }
+  if( izq > recta_der ){
+    ui.position.left = recta_der
+  }
+
+  var acople = parseInt( 100*(1-up/(alt_triang-20)) );
+  var Cc = parseInt( (100-acople)*(1-izq/(anch_triang-20)) );
+  var Aa = parseInt( (100-acople)*(izq/(anch_triang-20)) );
+  $("#input-nat-b").val(acople)
+  $("#input-nat-c").val(Cc);
+  $("#input-nat-a").val(Aa);
+
+  var p_c = $("#input-nat-c").val();
+  var p_a = $("#input-nat-a").val();
+  var p_b = $("#input-nat-b").val();
+
+
+  $("#barrita-c").css("width", p_c+"%");
+  if(p_c!=0){
+    $("#barrita-c").html(p_c+"%")
+  }
+  else{
+    $("#barrita-c").html("")
+  }
+
+  $("#barrita-a").css("width", p_a+"%");
+  if(p_a!=0){
+    $("#barrita-a").html(p_a+"%")
+  }
+  else{
+    $("#barrita-a").html("")
+  }
+
+  $("#barrita-b").css("width", p_b+"%");
+  if(p_b!=0){
+    $("#barrita-b").html(p_b+"%");
+  }
+  else{
+    $("#barrita-b").html("")
+  }
+
+
+
+  $("#carbono").html(p_c);
+  $("#agua").html(p_a);
+  $("#biodiversidad").html(p_b);
+
+  //$("#izq").html("left: "+izq+". top: "+up);
+
+});
+
+/*
+var allsolutions = {};
+var porcentajes = ["13"];
+for (j of porcentajes){
+  var sols=[];
+  for (var i=0;i<15;i++){
+    var m=i+1;
+    sols[i] =  L.geoJSON(this["natmap_"+j+"_"+m], { onEachFeature:eachsolucion}) ;
+  }
+  allsolutions[j] = sols
+}
+*/
+var allsolutions2 = {};
+
+
+var counter_sols=[]; // Sirve para combinar los colores del grafico con capa
+var counter_grafs = []; // Sirve para no repetir grafico YA agregado al ABC
+
+
+$(".pelotita").droppable();
+
+
+$(".droppis").droppable({
+  drop: function() {
+    var p_t2 = $("#input-nat-t").val();
+    var ter = valores_territorio[p_t2].toString();
+    var num = $(this).attr("data-id");
+
+    var colorlayer = random_color(); // Color Aleatorio combinado con la capa
+    var nomnom = "sol"+ter+"_"+num; // Nombre gral
+
+    /* True: LOCAL, False: Hay que llamar al servidor */
+    var serv_o_local = check_areas(nomnom);
+
+    if(serv_o_local != undefined){
+      var color = random_color();
+      var variab = serv_o_local.variable;
+      check_comparar_accion();
+
+      /* */
+      agregar_capa_norequest(nomnom, variab, color,ter,num);
+
+      /*Chequea si esta apretado comparar y elimina traces */
+      check_remove_traces("barras1",datata, nomnom);
+
+
+      /* Chequeo si ya esta el grafico ABC agregado o no */
+      var check_graf_abc = check_grafico(nomnom);
+      var comparando = $(".comparar-nat").is(":checked");
+
+      // Si comparando=TRUE y check_grafico=TRUE entonces NO AGREGAR.
+      if(check_graf_abc && comparando){
+        console.log("Ya esta en el grafico")
+      }
+      else{
+        add_grafico_abc(ter,num,color);
+        add_counter_graf(nomnom);
+      }
+
+    }
+    else{
+      request_capasol_addtodo(ter,num);
+      add_counter_graf(nomnom);
+    }
+
+  }
+});
+
+
+
+/* BUSCADOR ANIMALES (Dentro de una clase) */
+
+$(".buscador-spp").on("input",function(e){
+  /* Defino Variables */
+  var fsearch = $(e.target).val().toLowerCase();
+  var len = fsearch.length;
+  var idgral = $(e.target).parents().parents().attr("id");
+  var selec = $(e.target).siblings(".select-buscador");
+  var spps = $(selec).children("option:selected").val();
+
+  /* Itero sobre las familias dentro de esa Clase */
+  $("#"+idgral).children(".rtaV1").each(function(){
+    /* Defino nuevas variables */
+    var nom_fam = $(this).attr("data-id").toLowerCase();
+    var idid = $(this).attr("id");
+    var dat_inf = $(this).attr("data-info");
+
+    /* Si eligio familia */
+    if(spps=="familia"){
+      /* Itero sobre las letras de lo escrito y cheque si se corresponden */
+      for (i=0;i<len;i++){
+        if(fsearch[i]==nom_fam[i]){
+          $("label[for='"+idid+"']").show();
+        }
+        else{
+          $("label[for='"+idid+"']").hide();
+          break
+        }
+      }
+      if(fsearch==""){
+        $("label").show();
+      }
+    }
+
+    /* Si eligio especie */
+    if (spps=="especie"){
+      var onoff_out=0;
+      $("#"+idid+"s").children(".imgimg5").each(function(){
+        var idid2 = $(this).attr("id");
+        var nom_spp = $(this).attr("data-id").toLowerCase();
+        var onoff = 0; // Defino numero para chequear si se corresponden todas las letras
+        for (i=0;i<len;i++){
+          if(fsearch[i]==nom_spp[i]){
+          //  alert("Show:"+idid)
+          //  $(this).parents("#"+idid+"s").show();
+            $("label[for='"+idid2+"']").show();
+            onoff+=1;
+          }
+          else{
+            $("label[for='"+idid2+"']").hide();
+            break
+          }
+        };
+        if(onoff==len){
+          /* Si la palabra buscada se correspondio bien entonces sumo 1 */
+          onoff_out=+1;
+        }
+        if(fsearch==""){
+          $("label").show();
+        }
+      }) // Cierra iteracion (each) especies
+
+      if(onoff_out>0){
+        /* si es mayor que cero significa que encontro al menos 1 igual a lo escrito */
+        $(this).siblings("#"+idid+"s").show(); // Muestra bloque de especies
+        $("label[for='"+idid+"']").show(); // Muestra Boton Familia de la esp encontrada
+      }
+      else{
+        $(this).siblings("#"+idid+"s").hide(); // Esconde bloque de especies de familia no encontrada
+        $("label[for='"+idid+"']").hide(); // Esconde boton de Familia
+      }
+
+      if(fsearch==""){
+        $(this).siblings("#"+idid+"s").hide(); //Esconde todos los bloques de especies
+        $(this).siblings("label").show(); // Muestra todos los botones de familias
+      }
+
+    } //Cierra if especies
+
+
+
+  }); //Cierra iteracion de las familias
+
+});
+
+
+$("#resetstyle-todas").click(function(){
+  for (i of areas){
+    i.variable.resetStyle();
+  }
+});
+
+$("#borrar-todo").click(function(){
+  $(".loading").show();
+  setTimeout(function(){ $(".loading").hide() }, 3000);
+
+  var confirmacion = confirm("¿Desea borrar todo?");
+
+  if(confirmacion){
+    for (i of areas){
+      mymap.removeLayer(i.variable)
+    };
+    $(".select-capa").children().remove();
+    while($(".altura-owl2").length>0){
+      $('#carousel_barras').trigger('remove.owl.carousel',0);
+      $('#carousel_barras').trigger('refresh.owl.carousel');
+    };
+    remove_traces("barras1",datata);
+    counter_grafs = []; // Borro info de graficos abc agregados
+    drawnItems.clearLayers();
+
+  }
+
+});
+
+
+$("#nat0").click(function(){
+  var checked = $(this).is(":checked");
+  if (checked){
+    $(".modal-graficos").css("visibility","visible");
+    $("#barras1").show();
+    $(".modal-graficos").animate({height:"100%"});
+    $(".leaflet-iconLayers-layersRow").fadeToggle();
+    $(".leaflet-control-attribution").fadeToggle();
+  }
+  else{
+    $(".modal-graficos").animate({height:"1%"},function(){
+      $(".modal-graficos").css("visibility","hidden");
+      $("#barras1").hide();
+      $(".leaflet-iconLayers-layersRow").fadeToggle();
+      $(".leaflet-control-attribution").fadeToggle();
+    });
+    $(".select-naturemap").remove(); // borra todos los select de sols
+    remove_traces("barras1",datata); // datata los datos de las traces de natmap
+    counter_grafs = []; // Borro info de graficos abc agregados
+  }
+
+  /* Lo siguiente borra los graficos de las especies*/
+  while($(".altura-owl2").length>0){
+    $('#carousel_barras').trigger('remove.owl.carousel',0);
+    $('#carousel_barras').trigger('refresh.owl.carousel');
+  };
+
+});
+
+
+  $(".imgimg").click(function(){
+    $(this).children(".chequeado").fadeToggle();
+  });
+
+  $(".imgimg2").click(function(){
+    $(this).children(".chequeado").fadeToggle();
+  });
+
+
+
+
+
+
+  /* PLAY */
+  /*
+  $(".timecontrol-play").click(function(){
+   var a =  L.geoJSON(natmap_13_13,null).addTo(mymap);
+   var b = L.geoJSON(natmap_13_14,null);
+   var c = L.geoJSON(natmap_13_15,null);
+    setTimeout(function(){ mymap.removeLayer(a);
+      b.addTo(mymap);
+    }, 5000);
+   setTimeout(function(){ mymap.removeLayer(b);
+     c.addTo(mymap);
+   }, 10000);
+   setTimeout(function(){ mymap.removeLayer(c);
+   }, 15000);
+  })
+*/
+
+
+//
+
+
+var tilelayers = new L.FeatureGroup();
+
+/* LISTA DE CAPAS IGN */
+function GetCap_ign(){
+  var all_layers_ign = [];
+  $.ajax({
+    type: "GET",
+    //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
+    url:"https://wms.ign.gob.ar/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities&",
+    dataType: "xml",
+    cache: false,
+    success: function(xml){
+      $(xml).find("Capability").children("Layer").children("Layer").each(function(){
+        var name = $(this).children("Name").text();
+        var title = $(this).children("Title").text();
+        all_layers_ign.push({"name":name, "title":title });
+      });
+      all_layers_ign.sort(function(a,b){
+        if(a.title > b.title){
+          return 1;
+        }
+        if(a.title < b.title){
+          return -1;
+        }
+          return 0;
+      });
+      //console.log(all_layers_ign);
+      for(i=0;i<all_layers_ign.length;i++){
+        $("#ign_layers").append("<option value='"+all_layers_ign[i].name+"'>"+
+        all_layers_ign[i].title+"</option>")
+      }
+    }
+  }).then(function(){
+    $("#ign_layer_in").click(function(){
+      var ign_layer_active = $("#ign_layers option:selected").val();
+      console.log(ign_layer_active);
+      L.tileLayer.wms('https://wms.ign.gob.ar/geoserver/ows?SERVICE=WMS&',
+      {
+        layers:ign_layer_active ,
+        attribution: "IGN",
+        transparent:true,
+        bounds: [[ -180, -90], [ 180, 90]],
+        format: "image/png"
+      }).addTo(tilelayers);
+    tilelayers.addTo(mymap);
+    })
+  });
+};
+
+
+/* LISTA DE CAPAS NASA */
+function GetCap_nasa(){
+  var all_layers_nasa = [];
+  $.ajax({
+    type: "GET",
+    //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
+    url:"https://neo.sci.gsfc.nasa.gov/wms/wms?request=GetCapabilities?",
+    dataType: "xml",
+    cache: false,
+    success: function(xml){
+      $(xml).find("Capability").children("Layer").children("Layer").children("Layer").each(function(){
+        var name = $(this).children("Name").text();
+        var title = $(this).children("Title").text();
+        all_layers_nasa.push({"name":name, "title":title });
+      });
+      //console.log(all_layers_ign);
+      for(i=0;i<all_layers_nasa.length;i++){
+        $("#nasa_layers").append("<option value='"+all_layers_nasa[i].name+"'>"+
+        all_layers_nasa[i].title+"</option>")
+      }
+    }
+  }).then(function(){
+    $("#nasa_layer_in").click(function(){
+      var nasa_layer_active = $("#nasa_layers option:selected").val();
+      console.log(nasa_layer_active);
+      L.tileLayer.wms('https://neo.sci.gsfc.nasa.gov/wms/wms?',
+      {
+      layers:nasa_layer_active ,
+      attribution: "NASA",
+      transparent:true,
+      //bounds: [[ -180, -90], [ 180, 90]],
+      format: "image/png",
+      crs: L.CRS.EPSG4326
+    }).addTo(tilelayers);
+    tilelayers.addTo(mymap);
+    })
+  });
+};
+
+/* LISTA DE CAPAS FOOTPRINT */
+function GetCap_footprint(){
+  var all_layers_footprint = [];
+  $.ajax({
+    type: "GET",
+    //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
+    url:"https://sedac.ciesin.columbia.edu/geoserver/wms?request=GetCapabilities&",
+    dataType: "xml",
+    cache: false,
+    success: function(xml){
+      $(xml).find("Capability").children("Layer").children("Layer").each(function(){
+        var name = $(this).children("Name").text();
+        var title = $(this).children("Title").text();
+        all_layers_footprint.push({"name":name, "title":title });
+      });
+      all_layers_footprint.sort(function(a,b){
+        if(a.title > b.title){
+          return 1;
+        }
+        if(a.title < b.title){
+          return -1;
+        }
+          return 0;
+      });
+      //console.log(all_layers_ign);
+      for(i=0;i<all_layers_footprint.length;i++){
+        $("#footprint_layers").append("<option value='"+all_layers_footprint[i].name+"'>"+
+        all_layers_footprint[i].title+"</option>")
+      }
+    }
+  }).then(function(){
+    $("#footprint_layer_in").click(function(){
+      var footprint_layer_active = $("#footprint_layers option:selected").val();
+      console.log(footprint_layer_active);
+      L.tileLayer.wms('https://sedac.ciesin.columbia.edu/geoserver/ows?SERVICE=WMS&',
+      {
+      layers:footprint_layer_active ,
+      attribution: "NASA",
+      transparent:true,
+      //bounds: [[ -180, -90], [ 180, 90]],
+      format: "image/png",
+      crs: L.CRS.EPSG4326
+    }).addTo(tilelayers);
+    tilelayers.addTo(mymap);
+    })
+  });
+};
+
+
+
+ /* LISTA DE CAPAS Agroindustria  */
+ function GetCap_agro(){
+   var all_layers_agro = [];
+   $.ajax({
+     type: "GET",
+     //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
+     url:"https://www.geosur.info/arcgis/services/maps/GeoSUR_WMS_iirsa/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+    // url:"http://maping.glaciaresargentinos.gob.ar/geoserver/ows?SERVICE=WMS&version=1.3.0&request=GetCapabilities",
+     dataType: "xml",
+     cache: false,
+  /*   crossDomain:true,
+     xhrFields: {
+       withCredentials: true
+     },*/
+     //async:true,
+    /* beforeSend: function(xhr) {
+                    xhr.getAllResponseHeaders()
+                  },*/
+     success: function(xml){
+       $(xml).find("Capability").children("Layer").children("Layer").each(function(){
+         var name = $(this).children("Name").text();
+         var title = $(this).children("Title").text();
+         all_layers_agro.push({"name":name, "title":title });
+       });
+       all_layers_agro.sort(function(a,b){
+         if(a.title > b.title){
+           return 1;
+         }
+         if(a.title < b.title){
+           return -1;
+         }
+           return 0;
+       });
+       //console.log(all_layers_ign);
+       for(i=0;i<all_layers_agro.length;i++){
+         $("#agro_layers").append("<option value='"+all_layers_agro[i].name+"'>"+
+         all_layers_agro[i].title+"</option>")
+       }
+     }
+   }).then(function(){
+     $("#agro_layer_in").click(function(){
+       var agro_layer_active = $("#agro_layers option:selected").val();
+       console.log(agro_layer_active);
+       L.tileLayer.wms('https://geoserver.agroindustria.gob.ar/geoserver/ows?service=wms&',
+       {
+       layers:agro_layer_active ,
+       attribution: "Ministerio de Agroindustria",
+       transparent:true,
+       //bounds: [[ -180, -90], [ 180, 90]],
+       format: "image/png",
+       crs: L.CRS.EPSG4326
+     }).addTo(tilelayers);
+     tilelayers.addTo(mymap);
+     })
+   });
+ };
+//  GetCap_agro();
+
+
+
+GetCap_ign();
+GetCap_nasa();
+GetCap_footprint();
+
+
+  /* LISTA DE CAPAS EXTRA */
+  function GetCap_maswms(name,getcap,getmap){
+    var all_layers_maswms = [];
+    $.ajax({
+      type: "GET",
+      url:getcap,
+      dataType: "xml",
+      cache: false,
+      success: function(xml){
+        $(xml).find("Capability").children("Layer").children("Layer").each(function(){
+          var name = $(this).children("Name").text();
+          var title = $(this).children("Title").text();
+          all_layers_maswms.push({"name":name, "title":title });
+        });
+        all_layers_maswms.sort(function(a,b){
+          if(a.title > b.title){
+            return 1;
+          }
+          if(a.title < b.title){
+            return -1;
+          }
+            return 0;
+        });
+        //console.log(all_layers_ign);
+        $("#maswms_layers").html("");
+        for(i=0;i<all_layers_maswms.length;i++){
+          $("#maswms_layers").append("<option value='"+all_layers_maswms[i].name+"'>"+
+          all_layers_maswms[i].title+"</option>")
+        }
+      }
+    }).then(function(){
+      $("#maswms_layer_in").click(function(){
+        var maswms_layer_active = $("#maswms_layers option:selected").val();
+        //console.log(agro_layer_active);
+        L.tileLayer.wms(getmap,
+        {
+        layers:maswms_layer_active ,
+        attribution: name,
+        transparent:true,
+        //bounds: [[ -180, -90], [ 180, 90]],
+        format: "image/png",
+        crs: L.CRS.EPSG4326
+      }).addTo(tilelayers);
+      tilelayers.addTo(mymap);
+      })
+    });
+  };
+
+for(i in capas_wms_arg){
+  $("#servers_maswms").append("<option value='"+i+"'>"+capas_wms_arg[i].name+"</option>")
+}
+
+
+
+$("#servers_maswms").on("change",function(){
+  var nom = $("#servers_maswms option:selected").val();
+  if(nom == "none"){
+    $("#maswms_layers").hide();
+  }
+  else{
+    $("#maswms_layers").show();
+  }
+  // console.log(nom);
+  // console.log(capas_wms_arg[nom].name)
+  GetCap_maswms(capas_wms_arg[nom].name,capas_wms_arg[nom].getcap,capas_wms_arg[nom].getmap)
+})
+
+/*
+L.tileLayer.wms('https://ogcie.iblsoft.com/metocean/wms?SERVICE=WMS&',
+{
+layers:"gfs-temperature-isbl" ,
+attribution: "Meteocean",
+transparent:true,
+//bounds: [[ -180, -90], [ 180, 90]],
+format: "image/png",
+crs: L.CRS.EPSG4326
+}).addTo(mymap);
+*/
+
+/* LISTA DE CAPAS Metocean */
+
+function GetCap_metocean(){
+  var all_layers_meteocean = [];
+  $.ajax({
+    type: "GET",
+    //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
+    url:"https://ogcie.iblsoft.com/metocean/wms?SERVICE=WMS&version=1.3.0&request=GetCapabilities",
+    dataType: "xml",
+    cache: false,
+    success: function(xml){
+      $(xml).find("Capability").children("Layer").children("Layer").children("Layer").each(function(){
+        var name = $(this).children("Name").text();
+        var title = $(this).children("Title").text();
+        all_layers_meteocean.push({"name":name, "title":title });
+      });
+      //console.log(all_layers_ign);
+      for(i=0;i<all_layers_meteocean.length;i++){
+        $("#pronos_layers").append("<option value='"+all_layers_meteocean[i].name+"'>"+
+        all_layers_meteocean[i].title+"</option>")
+      }
+    }
+  }).then(function(){
+    $("#pronos_layer_in").click(function(){
+      var pronos_layer_active = $("#pronos_layers option:selected").val();
+      //console.log(nasa_layer_active);
+      L.tileLayer.wms('https://ogcie.iblsoft.com/metocean/wms?SERVICE=WMS&',
+      {
+      layers:pronos_layer_active ,
+      attribution: "Meteocean",
+      transparent:true,
+      //bounds: [[ -180, -90], [ 180, 90]],
+      format: "image/png",
+      crs: L.CRS.EPSG4326
+    }).addTo(tilelayers);
+    tilelayers.addTo(mymap);
+    })
+  });
+};
+
+GetCap_metocean();
+
+
+function GetCap_suelos(cap,map){
+  var all_layers_suelos = [];
+  $.ajax({
+    type: "GET",
+    //url:"http://maueli.scienceontheweb.net/"+directorio+"/"+nom+".js",
+    url:cap,
+    dataType: "xml",
+    cache: false,
+    success: function(xml){
+      $(xml).find("Capability").children("Layer").children("Layer").each(function(){
+        var name = $(this).children("Name").text();
+        var title = $(this).children("Title").text();
+        all_layers_suelos.push({"name":name, "title":title });
+      });
+      all_layers_suelos.sort(function(a,b){
+        if(a.title > b.title){
+          return 1;
+        }
+        if(a.title < b.title){
+          return -1;
+        }
+          return 0;
+      });
+      //console.log(all_layers_ign);
+      $("#suelos_layers_2").html("");
+      for(i=0;i<all_layers_suelos.length;i++){
+        $("#suelos_layers_2").append("<option value='"+all_layers_suelos[i].name+"'>"+
+        all_layers_suelos[i].title+"</option>")
+      }
+    }
+  }).then(function(){
+    $("#suelos_layer_in").click(function(){
+      var suelos_layer_active = $("#suelos_layers option:selected").val();
+      //console.log(nasa_layer_active);
+      L.tileLayer.wms(map,
+      {
+      layers:suelos_layer_active ,
+      attribution: "Soils",
+      transparent:true,
+      //bounds: [[ -180, -90], [ 180, 90]],
+      format: "image/png",
+      crs: L.CRS.EPSG4326
+    }).addTo(tilelayers);
+    tilelayers.addTo(mymap);
+    })
+  });
+};
+
+for(i=0;i<suelos_wms.length;i++){
+  $("#suelos_layers").append("<option value='"+suelos_wms[i]+"'>"+suelos_wms[i]+"</option>")
+}
+
+$("#suelos_layers").on("change",function(){
+  var nom = $("#suelos_layers option:selected").val();
+  if(nom == "none"){
+    $("#suelos_layers_2").hide();
+  }
+  else{
+    $("#suelos_layers_2").show();
+  }
+  // console.log(nom);
+  // console.log(capas_wms_arg[nom].name)
+  GetCap_suelos( get_soil_url(nom,"cap") , get_soil_url(nom) )
+})
+
+
+
+
+
+$(".tilelayer_rmv").click(function(){
+  tilelayers.clearLayers();
+});
+
+
+/* PRUEBA DE SOLO PONER UNA CAPA DE LOS QUE NO ANDAN.... Y FUNCIONA
+-Ver como acceder a GetCapabilities o no se de donde sacar la info para
+automatizarlo
+*/
+/*
+  L.tileLayer.wms('https://geoservicios.indec.gob.ar/geoserver/ows?SERVICE=WMS&',
+  {
+  layers:"geocenso2010:hogares_con_desague_cloacal_dpto" ,
+  attribution: "INDEC",
+  transparent:true,
+  //bounds: [[ -180, -90], [ 180, 90]],
+  format: "image/png",
+  crs: L.CRS.EPSG4326
+}).addTo(tilelayers);
+tilelayers.addTo(mymap);
+*/
+
+
+/*PROBANDO GEOJSON CON MARKERS PERSONALIZADOS*/
+var smallIcon = new L.Icon({
+    iconSize: [27, 27],
+    iconAnchor: [13, 27],
+    popupAnchor:  [1, -24],
+    iconUrl: 'img/check.png'
+});
+
+/*
+var prueba_marker = L.geoJSON(hola2,{
+  pointToLayer:function(a,pos){
+  return L.marker( pos, { icon:smallIcon })
+  }
+});
+
+$("#prueba_marker_in").click(function(){
+  prueba_marker.addTo(mymap);
+})
+$("#prueba_marker_out").click(function(){
+  prueba_marker.remove(mymap);
+})
+*/
+
+
+  </script>
+
+
+
+<script>
+
+
+
+
+
+
+// movie_active( rasters_video_layers )
+
+
+
+
+$("#movie_out").click( ()=>{
+  aluminio.remove(mymap)
+});
+
+</script>
+
+
+
+
+</html>

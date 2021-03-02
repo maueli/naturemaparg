@@ -939,7 +939,7 @@ function raster_call( file , nom, georaster ){
               georaster: georaster,
               opacity: 1,
               pixelValuesToColorFn: values => values[0] <= 0 ? null :
-                      (values[0] <=  10 )					? '#f6ffff' :
+                      (values[0] <=  10 )					? 'rgba(0,0,0,0)' :
                       (values[0] > 10 && values[0] <= 25) 	? '#48fef5' :
                       (values[0] > 25 && values[0] <= 50) 	? '#f6e016' :
                       (values[0] > 50 && values[0] <= 75) 	? '#ff7f00' :

@@ -1,0 +1,71 @@
+body{
+  width:100vw;
+  height:100vh;
+  background-image: url("../img/fondo.jpg");
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-attachment: fixed;
+  font-family: "Fondamento";
+  color:white;
+  text-decoration: none;
+
+}
+
+
+.titulo{
+  padding-top:100px;
+  font-size: 40px;
+}
+
+.indice{
+  font-size: 50px;
+  /*margin-bottom:50px; */
+}
+
+.indice3{
+  width:100%;
+  padding-top: 200px;
+  padding-bottom:00px;
+  /*height:100px;
+  padding-left:200px;;
+  padding-right:200px;
+  padding-bottom:20%;*/
+}
+
+.indice3 a{
+  text-decoration: none;
+  color:white;
+}
+
+.indice2{
+  padding-top:100px;
+  padding-right:50px;
+  padding-left:50px;
+  padding-bottom:100px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 5px;
+
+}
+
+
+.indice2:hover{
+  border:solid 2px white;
+}
+
+.indice2{
+width:100%;
+height:100%;
+}
+
+.copyright2{
+  font-size:10px;
+  padding-top:50px;
+}
+
+
+@media screen and (max-width: 1100px) {
+	.indice{
+		font-size: 30px;
+	}
+}

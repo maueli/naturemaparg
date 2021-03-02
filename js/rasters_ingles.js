@@ -9,7 +9,7 @@ function cultivo( nom ){
 },*/
     "presente_maxent":{
       "name" : nom.toLowerCase() + "_p_maxent",
-      "title": nom + " Presente MDS",
+      "title": nom + " Present MDS",
   //    "url": url_base + "_p_maxent.tif"
     },
     "2030_maxent":{
@@ -51,7 +51,7 @@ function add_cultivos_html(nom_cult, cult){
     var out = "<div class='row'> <div class='col-md-12 text-center '>" + txt + "</div> </div>";
     return out
   };
-  var titulocapa = "<h3 class='titulo-cultivos'> Capas </h3>";
+  var titulocapa = "<h3 class='titulo-cultivos'> Layers </h3>";
   var titulovideo = "<h3 class='titulo-cultivos'> TimeLapse </h3>";
   var videos = `<div class="row text-center">
                   <div class="col-md-6">
@@ -94,7 +94,7 @@ function raster_call_video( file , nom, georaster , rasters_layers, end="false" 
               georaster: georaster,
               opacity: 1,
               pixelValuesToColorFn: values => values[0] <= 0 ? null :
-                      (values[0] <=  10 )					? 'rgba(0,0,0,0)' :
+                      (values[0] <=  10 )					? '#f6ffff' :
                       (values[0] > 10 && values[0] <= 25) 	? '#48fef5' :
                       (values[0] > 25 && values[0] <= 50) 	? '#f6e016' :
                       (values[0] > 50 && values[0] <= 75) 	? '#ff7f00' :
