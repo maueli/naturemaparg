@@ -360,7 +360,15 @@ function lista_especies(fam){
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 /* Agregar Ecorregiones */
-
+ecorregiones.sort(function(a,b){
+  if(a > b){
+    return 1;
+  }
+  if(a < b){
+    return -1;
+  }
+    return 0;
+});
 for (i of ecorregiones){
   var nom = i[0];
   var nom_guion = i[1];
@@ -939,7 +947,7 @@ function raster_call( file , nom, georaster ){
               georaster: georaster,
               opacity: 1,
               pixelValuesToColorFn: values => values[0] <= 0 ? null :
-                      (values[0] <=  10 )					? 'rgba(0,0,0,0)' :
+                      (values[0] <=  10 )					? '#f6ffff' :
                       (values[0] > 10 && values[0] <= 25) 	? '#48fef5' :
                       (values[0] > 25 && values[0] <= 50) 	? '#f6e016' :
                       (values[0] > 50 && values[0] <= 75) 	? '#ff7f00' :
@@ -970,6 +978,7 @@ const rasters = new L.FeatureGroup();
 $(".capa_raster").one("click", function(){
   var nom_file = $(this).attr("data-id");
   var nom = $(this).attr("data-name");
+  var check = $(this).is(":checked");
   var file = url_git + "/" + nom + "/" + nom_file + ".tif";
   raster_call( file, nom_file , nom+"a")
 });
@@ -977,9 +986,11 @@ $(".capa_raster").one("click", function(){
 $(".capa_raster").click( function(){
   var nom = $(this).attr("data-id");
   if( $(this).is(":checked") ){
+    $(".modal-legenda-cultivos").fadeIn();
     raster_layers[nom].addTo(mymap)
   }
   else{
+    $(".modal-legenda-cultivos").fadeOut();
     raster_layers[nom].remove(rasters)
   }
 });

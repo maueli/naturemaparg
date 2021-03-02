@@ -1,10 +1,10 @@
 function cultivo( nom ){
   //var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
   var cult = {
-    "presente_inta":{
+/*    "presente_inta":{
       "name" : nom.toLowerCase() + "_p_inta",
       "title": nom + " Presente INTA",
-},
+},*/
     "presente_maxent":{
       "name" : nom.toLowerCase() + "_p_maxent",
       "title": nom + " Presente MDS (CMIP6)", //v2
@@ -38,7 +38,7 @@ function add_cultivos_html(nom_cult, cult){
   for (i in cult){
     var input_raster = ` <input class='rtaV0 capa_raster' id='`+cult[i].name+`' data-id='`+cult[i].name+`'
     data-class='`+cult[i].name+`' data-name='`+ nom_cult.toLowerCase() +`' type='checkbox'> `;
-    var check_raster = "<div class='chequeado'> <img src='img/check.png' width='30px'> </div>";
+    var check_raster = "<div class='chequeado'> <img src='img/check.png' width='15px'> </div>";
     var label_raster = `<label for='`+cult[i].name+`'> <div class='imgimg4'>
     <div>`+cult[i].title+`</div> `+ check_raster +` </div> </label>`;
 
@@ -142,26 +142,26 @@ function movie_active( arr ){
 
 
 
-// Aprendiendo a usar callback functions
+
 $(document).ready(function(){
-  $(".movie").click( function(){
-    $(".loading").show();
-    var nom_cult = $(this).attr("data-id");
-  //  console.log(nom_cult)
-    var info_cult = cultivo(nom_cult);
-  //  console.log(info_cult)
+  $(".movie").click( function(){ // 1 - CLICK VIDEO
+    $(".loading").show(); // Cargando....
+    var nom_cult = $(this).attr("data-id"); // Info de qué cultivo es
+    var info_cult = cultivo(nom_cult); // Info del cultivo en particular
 
-    var end = false;
+  //  delete info_cult["presente_inta"];
+    delete info_cult["2050_maxent"];
+    var end = false; //
 
-    for (i in info_cult){
+    for (i in info_cult){ // Itero en toda la info del cultivo en particular
       var file = url_git + "/" + nom_cult + "/" + info_cult[i].name + ".tif";
     //  console.log(i);
       if( i == "2050_maxent_v2" ){
         end = true;
       }
     //  console.log(end);
-
       raster_call_video( file ,nom_cult, nom_cult+"a", rasters_video_layers, end)
     }
+
   });
 });

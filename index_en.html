@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title> Viewmap beta </title>
+  <title> MapViewer </title>
 
 
   <meta charset="utf-8">
@@ -380,8 +380,8 @@
 
                     <button class="btn-acordion capa-cultivos" data-info="cult" > Crops <i class="fa fa-leaf"></i> </button>
                     <div class="capas capas2" id="cult">
-                      <button class="btn-acordion capa-cultivos2" data-info="soja" > Soya </button>
-                      <div class="capas capas2" id="soja">
+                      <button class="btn-acordion capa-cultivos2" data-info="soja-trigo" > Soya </button>
+                      <div class="capas capas2" id="soja-trigo">
                         <!-- input con rasters.js -->
                       </div>
                       <button class="btn-acordion capa-cultivos2" data-info="maiz" > Corn </button>
@@ -842,6 +842,49 @@
   </div>
 </div>
 
+
+
+<div class="modal-legenda-cultivos">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1 legenda-cuadro-1">
+      </div>
+      <div class="col-9">
+        0 - 10 %
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 legenda-cuadro-2">
+      </div>
+      <div class="col-9">
+        10 - 25 %
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 legenda-cuadro-3">
+      </div>
+      <div class="col-9">
+        25 - 50 %
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 legenda-cuadro-4">
+      </div>
+      <div class=" col-9">
+        50 - 75 %
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 legenda-cuadro-5">
+      </div>
+      <div class="col-9">
+        75- 100 %
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 
@@ -921,7 +964,7 @@
 <script src="capas/bio_prom_endemicas.js"></script>
 <script src="capas/metas_elem.js"></script>
 <script src="capas/metas_spps.js"></script>
-<script src="capas/ecorregiones.js"></script>
+<script src="capas/ecorregiones_ingles.js"></script>
 
 <script type="text/javascript" src="capas/capas_wms_arg.js"></script>
 <script type="text/javascript" src="capas/suelos_wms.js"></script>

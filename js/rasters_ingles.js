@@ -1,7 +1,7 @@
 function cultivo( nom ){
   //var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
   var cult = {
-  /*  "presente_inta":{
+/*    "presente_inta":{
       //"name": "soja_presente_inta",
       "name" : nom.toLowerCase() + "_p_inta",
       "title": nom + " Presente INTA",
@@ -9,18 +9,22 @@ function cultivo( nom ){
 },*/
     "presente_maxent":{
       "name" : nom.toLowerCase() + "_p_maxent",
-      "title": nom + " Present MDS",
+      "title": nom + " Present MDS (CMIP6)",
   //    "url": url_base + "_p_maxent.tif"
     },
     "2030_maxent":{
       "name": nom.toLowerCase() + "_30_maxent",
-      "title": nom + " 2030 MDS",
+      "title": nom + " 2030 MDS (GCMs)",
 //      "url": url_base + "_30_maxent.tif"
+    },
+    "2050_maxent_v2":{
+      "name": nom.toLowerCase() + "_50_maxent_v2",
+      "title": nom + " 2050 MDS (CMIP6)",
+  //    "url": url_base + "_50_maxent.tif"
     },
     "2050_maxent":{
       "name": nom.toLowerCase() + "_50_maxent",
-      "title": nom + " 2050 MDS",
-  //    "url": url_base + "_50_maxent.tif"
+      "title": nom + " 2050 MDS (GCMs)", //v1
     }
   };
   return cult;
@@ -39,7 +43,7 @@ function add_cultivos_html(nom_cult, cult){
   for (i in cult){
     var input_raster = ` <input class='rtaV0 capa_raster' id='`+cult[i].name+`' data-id='`+cult[i].name+`'
     data-class='`+cult[i].name+`' data-name='`+ nom_cult.toLowerCase() +`' type='checkbox'> `;
-    var check_raster = "<div class='chequeado'> <img src='img/check.png' width='30px'> </div>";
+    var check_raster = "<div class='chequeado'> <img src='img/check.png' width='15px'> </div>";
     var label_raster = `<label for='`+cult[i].name+`'> <div class='imgimg4'>
     <div class='sojaaa'>`+cult[i].title+`</div> `+ check_raster +` </div> </label>`;
 
@@ -71,7 +75,7 @@ function add_cultivos_html(nom_cult, cult){
 
 
 /* Agrego todo al DOM */
-const cultivos = [ "Maiz" , "Soja", "Girasol", "Vid" ];
+const cultivos = [ "Maiz" , "Soja-Trigo", "Girasol", "Vid" ];
 for ( j=0; j < 4; j++ ){
   var info_cultivo = cultivo( cultivos[j] ); // Info del cultivo y sus Tiffs
   $( "#"+cultivos[j].toLowerCase() ).append("<div class='container pt-3 pb-3 '></div>");
@@ -106,9 +110,10 @@ function raster_call_video( file , nom, georaster , rasters_layers, end="false" 
           });
           rasters_layers.push(out);
           //raster_layers[nom] = out;
-          //console.log("cargue una")
+          //console.log("cargue una");
+          //console.log(end);
           if(end){
-            //console.log("llegue al final")
+          //  console.log("llegue al final")
             rasters_video_group.addTo(mymap);
             //console.log("FeatureGroup cargado en el mapa")
             $(".loading").hide();
@@ -152,12 +157,13 @@ $(document).ready(function(){
     var info_cult = cultivo(nom_cult);
   //  console.log(info_cult)
 
+    delete info_cult["2050_maxent"];
     var end = false;
 
     for (i in info_cult){
       var file = url_git + "/" + nom_cult + "/" + info_cult[i].name + ".tif";
-    //  console.log(i);
-      if( i == "2050_maxent" ){
+  //   console.log(i);
+      if( i == "2050_maxent_v2" ){
         end = true;
       }
     //  console.log(end);

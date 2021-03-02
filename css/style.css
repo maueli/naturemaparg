@@ -862,6 +862,9 @@ label{
 	right:10px;
 	display:none;
 }
+.chequeado img{
+	width:15px;
+}
 
 
 .boton-animales-texto{
@@ -2291,18 +2294,49 @@ background-color:#4583b2;
 .recuadro{
 	display:none;
 }
-/*
- .plot-container{
-background-color: rgba(0,0,0,0) !important;
- }
- .plotly{
-	 background-color: rgba(0,0,0,0) !important;
- }
 
-.svg-container{
-background-color: rgba(0,0,0,0) !important;
+.modal-legenda-cultivos{
+	display: none;
+/*	visibility: hidden;*/
+	position:absolute;
+	top:150px;
+	right:20px;
+	width:180px;
+	/*height:150px;*/
+	background-color:rgba(0,0,0,0.5);
+	z-index:999999999999999999 !important;
+	border-radius: 10px;
+	/* offset-x | offset-y | blur-radius | spread-radius | color */
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 1);
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left: 20px;
+	color:white;
+	line-height: 1.5;
 }
-*/
+.legenda-cuadro-1, .legenda-cuadro-2, .legenda-cuadro-3,
+.legenda-cuadro-4, .legenda-cuadro-5{
+width:10px;
+/*height:10px;*/
+color:white !important;
+font-size:10px;
+}
+.legenda-cuadro-1{
+	background-color: #f6ffff
+}
+.legenda-cuadro-2{
+	background-color: #48fef5
+}
+.legenda-cuadro-3{
+	background-color: #f6e016
+}
+.legenda-cuadro-4{
+	background-color: #ff7f00
+}
+.legenda-cuadro-5{
+	background-color: #f00a06
+}
+
 
 
 /* DIALOGG */
