@@ -1,26 +1,25 @@
 function cultivo( nom ){
   //var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
   var cult = {
-  /*  "presente_inta":{
-      //"name": "soja_presente_inta",
+    "presente_inta":{
       "name" : nom.toLowerCase() + "_p_inta",
       "title": nom + " Presente INTA",
-  //    "url": url_base + "_p_maxent.tif"
-},*/
+},
     "presente_maxent":{
       "name" : nom.toLowerCase() + "_p_maxent",
-      "title": nom + " Presente MDS",
-  //    "url": url_base + "_p_maxent.tif"
+      "title": nom + " Presente MDS (CMIP6)", //v2
     },
     "2030_maxent":{
       "name": nom.toLowerCase() + "_30_maxent",
-      "title": nom + " 2030 MDS",
-//      "url": url_base + "_30_maxent.tif"
+      "title": nom + " 2030 MDS (GCMs)", //v1
+    },
+    "2050_maxent_v2":{
+      "name": nom.toLowerCase() + "_50_maxent_v2",
+      "title": nom + " 2050 MDS (CMIP6)", //v2 LINDA (rios)
     },
     "2050_maxent":{
       "name": nom.toLowerCase() + "_50_maxent",
-      "title": nom + " 2050 MDS",
-  //    "url": url_base + "_50_maxent.tif"
+      "title": nom + " 2050 MDS (GCMs)", //v1
     }
   };
   return cult;
@@ -41,7 +40,7 @@ function add_cultivos_html(nom_cult, cult){
     data-class='`+cult[i].name+`' data-name='`+ nom_cult.toLowerCase() +`' type='checkbox'> `;
     var check_raster = "<div class='chequeado'> <img src='img/check.png' width='30px'> </div>";
     var label_raster = `<label for='`+cult[i].name+`'> <div class='imgimg4'>
-    <div class='sojaaa'>`+cult[i].title+`</div> `+ check_raster +` </div> </label>`;
+    <div>`+cult[i].title+`</div> `+ check_raster +` </div> </label>`;
 
     todo = todo + input_raster + label_raster;
   };
@@ -71,7 +70,7 @@ function add_cultivos_html(nom_cult, cult){
 
 
 /* Agrego todo al DOM */
-const cultivos = [ "Maiz" , "Soja", "Girasol", "Vid" ];
+const cultivos = [ "Maiz" , "Soja-Trigo", "Girasol", "Vid" ];
 for ( j=0; j < 4; j++ ){
   var info_cultivo = cultivo( cultivos[j] ); // Info del cultivo y sus Tiffs
   $( "#"+cultivos[j].toLowerCase() ).append("<div class='container pt-3 pb-3 '></div>");
@@ -94,7 +93,7 @@ function raster_call_video( file , nom, georaster , rasters_layers, end="false" 
               georaster: georaster,
               opacity: 1,
               pixelValuesToColorFn: values => values[0] <= 0 ? null :
-                      (values[0] <=  10 )					? 'rgba(0,0,0,0)' :
+                      (values[0] <=  10 )					? '#f6ffff' :
                       (values[0] > 10 && values[0] <= 25) 	? '#48fef5' :
                       (values[0] > 25 && values[0] <= 50) 	? '#f6e016' :
                       (values[0] > 50 && values[0] <= 75) 	? '#ff7f00' :
@@ -128,7 +127,7 @@ function rmv_movie(e){
   e.remove(rasters_video_group);
 }
 
-var rasters_video_layers = [];
+var rasters_video_layers = []; // Arr para poner capas en video
 
 function movie_active( arr ){
   for (i=0;i<arr.length;i++){
@@ -136,7 +135,7 @@ function movie_active( arr ){
     setTimeout(add_movie, 100+i*3000 , arr[i] )
     setTimeout(rmv_movie, 3000+i*3000 , arr[i] )
   }
-  rasters_video_layers = [];
+  rasters_video_layers = []; // Reseteo Arr luego de visualizarlo
 }
 
 
@@ -157,7 +156,7 @@ $(document).ready(function(){
     for (i in info_cult){
       var file = url_git + "/" + nom_cult + "/" + info_cult[i].name + ".tif";
     //  console.log(i);
-      if( i == "2050_maxent" ){
+      if( i == "2050_maxent_v2" ){
         end = true;
       }
     //  console.log(end);
