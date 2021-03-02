@@ -376,7 +376,7 @@ for (i of ecorregiones){
   var nom_peq = "Monte_de_Llanuras_y_Mesetas"== nom_guion || "Monte_de_Sierras_y_Bolsones" == nom_guion;
   if(nom_peq){
     $("#"+nom_guion).next("label").children(".imgimg2").css({'padding-top':'10px'});
-    $("#"+nom_guion).next("label").children(".imgimg2").children(".boton-animales-texto").css({'font-size':'27px'});
+    $("#"+nom_guion).next("label").children(".imgimg2").children(".boton-animales-texto").addClass({'font-size':'27px'});
 
   }
 }

@@ -583,12 +583,13 @@ label{
 	display:block;
 	position:relative;
 	width:100%;
-	height:10vh;
+/*	height:10vh;*/
 	background-image: url('../img/areasprotegidas.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding-top:25px;
+	padding-bottom:25px;
 }
 
 .img-comp{
@@ -765,20 +766,19 @@ label{
   cursor: pointer; /* Cursor on hover */
 }
 
-
+.arg, .prov, .dep{
+	color:black;
+}
 
 .arg{
 	background-image: url('../img/argentina2.png');
-	background-size:auto auto;
-	color:black;
+	background-size: cover;
 }
 .prov{
 	background-image: url('../img/provincias2.png');
-	color:black;
 }
 .dep{
 	background-image: url('../img/departamentos2.png');
-	color:black;
 }
 
 
@@ -788,12 +788,13 @@ label{
 	display:block;
 	position:relative;
 	width:100%;
-	height:10vh;
+	/* height:10vh; */
 	background-image: url('../img/capasnuevas2.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding-top:30px;
+	padding-bottom:30px;
 	color:white;
 	font-size:20px;
 	letter-spacing: 2px;
@@ -825,7 +826,6 @@ label{
 	display:block;
 	position:relative;
 	width:100%;
-	height:30px;
 	padding-top:3px;
 	background-color: rgba(0,0,0,0.3);
 	color:white;
@@ -870,7 +870,7 @@ label{
 	color:white;
 	font-weight: bold;
 	letter-spacing: 2px;
-	text-shadow: 1px 1px 1px black;
+	text-shadow: 2px 2px 15px black;
 	user-select: none;
 }
 .boton-argentina-texto{
@@ -881,6 +881,9 @@ label{
 	font-weight: bold;
 	letter-spacing: 2px;
 	user-select: none;
+}
+.btn-texto-largo{
+	font-size:27px;
 }
 
 
@@ -1133,148 +1136,6 @@ padding-top:100px;
 	padding-left: 10px;
 	padding-right: 10px;
 	border-top:solid white 1px
-}
-
-
-
-@media screen and (max-width: 1704px) {
-}
-
-@media screen and (max-width: 1560px) {
-}
-
-
-@media screen and (max-width: 1400px) {
-	.titulo-tematicas{font-size: 26px; padding:20px 0 20px 0;}
-	.columna{font-size:30px;}
-	.columna:hover{font-size:250%;}
-}
-
-@media screen and (max-width: 1370px) {
-}
-
-
-
-@media screen and (max-width: 1199px) {
-.shrink{
-	height:75px;
-}
-.navbar-collapse{
-		background-color:rgba(0,0,0,0.6);
-		margin-left:0px;
-		margin-right:0px;
-	 	padding-left:0px;
-		margin-top:2px;
-	}
-.navbar-collapse2{
-	background-color:black !important;
-}
-.dropdown-menu{
-	display:block;
-}
-
-
-}
-
-@media screen and (max-width: 1050px) {
-.experiencias{height:1500px;}
-.experiencias-texto{padding-top:140px; padding-left:80px;}
-.experiencias-texto p{font-size:15px; padding-top:10px;}
-.experiencias-texto h3{font-size:22px;}
-.contacto2{padding-left:100px; padding-right:100px;}
-.bariloche{font-size:20px;}
-.mapa img{width:90%;}
-}
-
-
-@media screen and (max-width: 1000px) {
-.quienessomos{font-size:25px;}
-.bariloche{padding-left:100px; padding-right:100px;}
-}
-
-@media screen and (max-width: 850px) {
-.quienessomos{font-size:25px; padding-left:50px; padding-right:50px;}
-.qs2{padding-left:100px; padding-right:100px;}
-.qs3{font-size:18px;}
-.experiencias-texto{padding-top:110px; padding-left:80px;}
-.experiencias-texto p{font-size:13px; padding-top:10px;}
-.experiencias-texto h3{font-size:18px;}
-.fotos{height:100px;}
-}
-
-@media screen and (max-width: 767px) {
-.experiencias{height:4200px; background-repeat:repeat-y;background-size: 1000px 500px;;}
-.experiencias-texto{padding-top:180px; padding-left:140px; padding-right:00px;}
-.experiencias-texto p{font-size:20px; padding-top:10px;}
-.experiencias-texto h3{font-size:30px;}
-.bariloche{font-size:17px;}
-.fotos{height:350px;}
-}
-
-
-@media screen and (max-width: 710px) {
-.qs2{padding-left:70px; padding-right:70px;}
-}
-
-@media screen and (max-width: 650px) {
-.experiencias{height:3600px;}
-.experiencias-texto{padding-top:180px; padding-left:140px; padding-right:90px;}
-}
-
-@media screen and (max-width: 620px) {
-.fotos{height:300px;}
-}
-
-@media screen and (max-width: 575px) {
-.qs3{padding-left:50px;}
-.experiencias{height:3200px;}
-.experiencias-texto{padding-top:140px; padding-left:80px; padding-right:90px;}
-.experiencias-texto p{font-size:15px; padding-top:10px;}
-.experiencias-texto h3{font-size:20px;}
-.contacto2{padding-left:15px; padding-right:15px;}
-.bariloche{padding-left:20px; padding-right:20px;}
-.fototestimonio img{width:200px;}
-.testimonios{font-size:5px;}
-}
-
-@media screen and (max-width: 534px) {
-.fotos{height:220px;}
-}
-
-
-@media screen and (max-width: 500px) {
-.titulo{font-size:20px; padding-top:8px;}
-.logotop{  width:60px; height:40px; margin-top:-5px;}
-.nonshrink{height:60px;}
-.shrink{height:50px;}
-.quienessomos{font-size:18px;}
-.qs1{font-size:18px;}
-.experiencias{height:2900px;}
-}
-
-
-@media screen and (max-width: 430px) {
-.experiencias-texto{padding-top:110px; padding-left:50px; padding-right:90px;}
-.experiencias-texto p{font-size:10px; padding-top:10px;}
-.experiencias-texto h3{font-size:15px;}
-.fotos{height:160px;}
-}
-
-@media screen and (max-width: 385px) {
-.titulo{font-size:15px; padding-top:7px;}
-.logotop{  width:50px; height:35px;  }
-.nonshrink{height:50px;}
-.shrink{height:45px;}
-}
-
-
-@media screen and (max-width: 360px) {
-.experiencias{height:2100px;}
-}
-
-@media screen and (max-width: 340px) {
-.logotop{  display:none !important;}
-.logodown{display:none !important;}
 }
 
 
@@ -2038,7 +1899,7 @@ background-color:#4583b2;
 	color:black;
 	font-weight: bold;
 	letter-spacing: 2px;
-	text-shadow: 1px 1px 1px white;
+	text-shadow: 1px 1px 10px white;
 	user-select: none;
 	border-radius: 50px;
 	border-top:3px;
@@ -2571,19 +2432,58 @@ background-color: rgba(0,0,0,0) !important;
 
 
 /* FALTA SEGUIR CON ESTO! */
-@media (min-width: 768px) and (max-width: 1200px) {
-.btn-acordion{
-	font-size: 10px;
-	}
-.boton-animales-texto{
-	font-size: 10px;
-}
-}
 @media (min-width: 10px) and (max-width: 470px) {
-.btn-acordion{
-	font-size:10px;
+	.btn-acordion{
+		font-size:10px;
+		}
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+	.btn-acordion, .boton-animales-texto, .btn-texto-largo,
+	.boton-argentina-texto, .seleccionar, .opacidad, .colores, .otros,
+	.reset-borrar, .naturemap-txt{
+		font-size: 10px;
+		}
+		.imgimg4{
+			font-size: 10px;
+		}
+		.titulo-cultivos{
+			font-size: 15px;
+		}
+	.imgimg, .imgimg2{
+			padding-top:12px;
+			padding-bottom:12px;
+		}
+		.btn-acordion{
+			height:30px;
+		}
+		.btn-others, .btn-expandir, .triangulo-letra{
+			font-size:12px;
+		}
+}
+@media (min-width: 1201px) and (max-width: 1399px) {
+	.btn-acordion, .boton-animales-texto, .btn-texto-largo,
+	.boton-argentina-texto, .seleccionar, .opacidad, .colores, .otros,
+	.reset-borrar. .naturemap-txt	{
+		font-size: 10px;
+		}
+	.imgimg, .imgimg2{
+		padding-top:20px;
+		padding-bottom:20px;
+	}
+	.imgimg4, .imgimg3{
+		font-size: 10px;
+	}
+	.titulo-cultivos{
+		font-size: 15px;
+	}
+	.btn-acordion{
+		height:40px;
+	}
+	.btn-others, .btn-expandir, .triangulo-letra{
+		font-size:12px;
 	}
 }
+
 
 
 

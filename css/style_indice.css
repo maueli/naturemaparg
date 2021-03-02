@@ -1,12 +1,12 @@
 body{
   width:100vw;
   height:100vh;
-  background-image: url("../img/fondo.jpg");
+  background-image: url("../img/fondo2.jpeg");
   background-position:center;
   background-repeat: no-repeat;
   background-size:cover;
   background-attachment: fixed;
-  font-family: "Fondamento";
+  font-family: "Calistoga";
   color:white;
   text-decoration: none;
 
@@ -15,7 +15,8 @@ body{
 
 .titulo{
   padding-top:100px;
-  font-size: 40px;
+  font-size: 50px;
+  text-shadow: black 5px 5px 20px
 }
 
 .indice{
