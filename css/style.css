@@ -1844,7 +1844,13 @@ VERDE: #026202
 	display:none;
 }
 
+.capa-suelos{
+	background-color: rgb(250,250,215);
+}
 
+.capa-pronos{
+	background-color: rgb(250,250,235);
+}
 
 
 
@@ -1913,6 +1919,8 @@ background-color:#4583b2;
 .maswms_select{
 	width:100%;
 }
+
+
 
 
 /* SEARCH */
@@ -2341,8 +2349,8 @@ font-size:10px;
 .modal-inicio{
 	display: none;
 	position:absolute;
-	top:50px;
-	left:150px;
+	top:20px;
+	left:48px;
 	width:180px;
 	/*height:150px;*/
 	background-color:rgba(0,0,0,0);
@@ -2350,6 +2358,13 @@ font-size:10px;
 }
 .modal-inicio img{width:200px; height:200px;}
 
+.initial-light2{
+	/*background-color: #e56b00;*/
+background-color: rgba(229,107,0,1);
+transition: all 1s ease-in;
+-webkit-transition:  all 1s ease-in;
+
+}
 
 /* DIALOGG */
 
@@ -2475,6 +2490,10 @@ font-size:10px;
 .btn-others:active {
 		border:solid 2px white;
 }
+
+
+
+
 
 
 /* FALTA SEGUIR CON ESTO! */

@@ -1,4 +1,4 @@
-function cultivo( nom ){
+function cultivo( nom , nom_en){
   //var url_base = "https://maueli.github.io/pruebaserver/"+nom.toLowerCase();
   var cult = {
 /*    "presente_inta":{
@@ -9,22 +9,22 @@ function cultivo( nom ){
 },*/
     "presente_maxent":{
       "name" : nom.toLowerCase() + "_p_maxent",
-      "title": nom + " Present MDS (CMIP6)",
+      "title": nom_en + " Present MDS (CMIP6)",
   //    "url": url_base + "_p_maxent.tif"
     },
     "2030_maxent":{
       "name": nom.toLowerCase() + "_30_maxent",
-      "title": nom + " 2030 MDS (GCMs)",
+      "title": nom_en + " 2030 MDS (GCMs)",
 //      "url": url_base + "_30_maxent.tif"
     },
     "2050_maxent_v2":{
       "name": nom.toLowerCase() + "_50_maxent_v2",
-      "title": nom + " 2050 MDS (CMIP6)",
+      "title": nom_en + " 2050 MDS (CMIP6)",
   //    "url": url_base + "_50_maxent.tif"
     },
     "2050_maxent":{
       "name": nom.toLowerCase() + "_50_maxent",
-      "title": nom + " 2050 MDS (GCMs)", //v1
+      "title": nom_en + " 2050 MDS (GCMs)", //v1
     }
   };
   return cult;
@@ -45,7 +45,7 @@ function add_cultivos_html(nom_cult, cult){
     data-class='`+cult[i].name+`' data-name='`+ nom_cult.toLowerCase() +`' type='checkbox'> `;
     var check_raster = "<div class='chequeado'> <img src='img/check.png' width='15px'> </div>";
     var label_raster = `<label for='`+cult[i].name+`'> <div class='imgimg4'>
-    <div class='sojaaa'>`+cult[i].title+`</div> `+ check_raster +` </div> </label>`;
+    <div>`+ cult[i].title +`</div> `+ check_raster +` </div> </label>`;
 
     todo = todo + input_raster + label_raster;
   };
@@ -76,8 +76,9 @@ function add_cultivos_html(nom_cult, cult){
 
 /* Agrego todo al DOM */
 const cultivos = [ "Maiz" , "Soja-Trigo", "Girasol", "Vid" ];
+const cultivos_en = {"Maiz":"Corn", "Soja-Trigo":"Soya-Wheat", "Girasol":"Sunflower", "Vid":"Vine"};
 for ( j=0; j < 4; j++ ){
-  var info_cultivo = cultivo( cultivos[j] ); // Info del cultivo y sus Tiffs
+  var info_cultivo = cultivo( cultivos[j] , cultivos_en[ cultivos[j] ] ); // Info del cultivo y sus Tiffs
   $( "#"+cultivos[j].toLowerCase() ).append("<div class='container pt-3 pb-3 '></div>");
   add_cultivos_html(cultivos[j], info_cultivo );
 }
