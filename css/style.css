@@ -2533,6 +2533,17 @@ transition: all 1s ease-in;
 		.btn-others, .btn-expandir, .triangulo-letra{
 			font-size:12px;
 		}
+		.img-comp{
+			padding-top:5px;
+			padding-bottom:5px;
+			height:auto;
+		}
+		.texto-nat, .img-comp{
+			font-size:14px;
+		}
+		.texto-nat-ter{
+			font-size: 11px;
+		}
 }
 @media (min-width: 1201px) and (max-width: 1399px) {
 	.btn-acordion, .boton-animales-texto, .btn-texto-largo,
@@ -2555,6 +2566,11 @@ transition: all 1s ease-in;
 	}
 	.btn-others, .btn-expandir, .triangulo-letra{
 		font-size:12px;
+	}
+	.img-comp{
+		height:auto;
+		padding-top:10px;
+		padding-bottom:10px;
 	}
 }
 
