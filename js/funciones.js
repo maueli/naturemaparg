@@ -998,9 +998,11 @@ $(".capa_raster").click( function(){
 
 
 
-
-
-
+/*
+$(".info-project").click(function(){
+  $(this).hide();
+})
+*/
 
 
 
