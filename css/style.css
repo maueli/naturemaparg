@@ -2432,6 +2432,7 @@ transition: all 1s ease-in;
 	z-index:999999999999999999999999999999999 !important;
 	display:none;
 	background-color:rgba(0,0,0,0.2);
+	cursor: wait;
 }
 .loading2{
 	display:block;
@@ -2499,9 +2500,6 @@ transition: all 1s ease-in;
 .btn-others:active {
 		border:solid 2px white;
 }
-
-
-
 
 
 
