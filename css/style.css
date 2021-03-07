@@ -2487,7 +2487,7 @@ transition: all 1s ease-in;
 }
 
 .btn-others{
-	border:none;
+	border:none; 
 	background-color: none;
 	border-radius: 5px;
 	border-width: 5px;
